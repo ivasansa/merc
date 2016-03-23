@@ -9,4 +9,8 @@ router.get('/', function(req, res, next) {
   res.send('index :D');
 });
 
+router.get('/c9', function(req, res, next) {
+  res.render("/public/indexc9.html");
+});
+
 module.exports = router;
