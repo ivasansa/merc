@@ -1,8 +1,3 @@
-# openshift-express4
+# The Drunken Merc
 
-An Example for using Express 4 with Openshift
-
-This is a blank template project.
-It is derived from express4 generator template project and openshift default project.
-
-Just clone the repo ! :)
+Dankest card game in da hood
