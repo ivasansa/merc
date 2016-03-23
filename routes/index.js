@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/c9', function(req, res, next) {
-  res.render("/public/indexc9.html");
+//   res.render(public/indexc9.html);
 });
 
 module.exports = router;
