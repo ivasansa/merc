@@ -1,12 +1,12 @@
 (function (app) {
-    app.AppComponent =
+    app.AppComponentDos =
         ng.core.Component({
-            selector: 'appProva',
+            selector: 'appProva2',
             template: '<h1>Primera aplicació amb Angular2, {{nom}}</h1>'
         })
         .Class({
             constructor: function () {
-                this.nom = "Sergi"
+                this.nom = "Ivan"
             }
         });
 })(window.app || (window.app = {}));
