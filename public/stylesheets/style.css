@@ -1,0 +1,4 @@
+ @font-face { font-family: Mordred; src: url('Mordred.ttf'); } 
+ @font-face { font-family: Mordred; font-weight: bold; src: url('Mordred-Bold.ttf');}
+ 
+  h1 { font-family: Mordred, sans-serif!important; }
