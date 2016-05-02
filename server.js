@@ -14,6 +14,8 @@ var AppContainer = function () {
     //  Set the environment variables we need.
     self.ipaddress = process.env.OPENSHIFT_NODEJS_IP || process.env.IP ;
     self.port = process.env.OPENSHIFT_NODEJS_PORT || process.env.PORT ;
+    
+    
 
     if (typeof self.ipaddress === "undefined") {
       //  Log errors on OpenShift but continue w/ 127.0.0.1 - this
