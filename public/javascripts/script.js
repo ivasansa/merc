@@ -1,1 +1,1 @@
-var socket = io.connect('http://localhost:8443/', {secure: true,'forceNew':true });
+var socket = io.connect({secure: true,'forceNew':true });
