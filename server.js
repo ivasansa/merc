@@ -83,6 +83,7 @@ var AppContainer = function () {
      * Create HTTP server.
      */
     var server = http.createServer(app);
+    // io = require('socket.io')(server);  
     /**
      * Listen on provided port, on all network interfaces.
      */
