@@ -83,7 +83,18 @@ var AppContainer = function () {
      * Create HTTP server.
      */
     var server = http.createServer(app);
-    // io = require('socket.io')(server);  
+    var io = require("socket.io").listen(server);
+    
+    
+    io.on('connection', function(socket){
+      console.log('a user connected');
+      
+      socket.on('disconnect', function(){
+        console.log('user disconnected');
+      });
+    });
+    
+    
     /**
      * Listen on provided port, on all network interfaces.
      */
