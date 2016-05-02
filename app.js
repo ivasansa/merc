@@ -22,7 +22,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
     // default to a 'localhost' configuration:
-    var connection_string = '127.0.0.1:27017/YOUR_APP_NAME';
+    var connection_string = '127.0.0.1:27017/merc';
     // if OPENSHIFT env variables are present, use the available connection info:
     if(process.env.OPENSHIFT_MONGODB_DB_PASSWORD){
       connection_string = process.env.OPENSHIFT_MONGODB_DB_USERNAME + ":" +
@@ -31,6 +31,7 @@ app.set('view engine', 'jade');
       process.env.OPENSHIFT_MONGODB_DB_PORT + '/' +
       process.env.OPENSHIFT_APP_NAME;
     }
+
 
 MongoClient.connect('mongodb://'+connection_string, function(err, db) {
   if(err) throw err;
