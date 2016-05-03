@@ -32,8 +32,10 @@
                 this.dragging = false;
                 ev.preventDefault();
                 var data = ev.dataTransfer.getData("text");
-                console.log(data);
-                ev.target.appendChild(document.getElementById(data));
+                var node = document.createElement("img"); 
+                node.src = data;
+                console.log(ev.target);
+                ev.target.appendChild(node);
             }
         });
         
