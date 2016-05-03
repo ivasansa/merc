@@ -3,7 +3,7 @@
         ng.core.Component({
             selector: 'joc',
             // template: "<table></table>"
-            templateURL: "app/joc.html"
+            templateURL: "/joc.html"
         })
         .Class({
             constructor: function () {
