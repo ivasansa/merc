@@ -1,8 +1,9 @@
 (function (app) {
     app.AppComponent =
         ng.core.Component({
-            selector: 'appProva',
-            template: '<h1>Primera aplicació amb Angular2, {{nom}}</h1>'
+            selector: 'joc',
+            // template: "<table></table>"
+            templateURL: "app/joc.html"
         })
         .Class({
             constructor: function () {
