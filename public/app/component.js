@@ -2,7 +2,6 @@
     app.AppComponent =
         ng.core.Component({
             selector: 'joc',
-            // template: "<table></table>"
             templateUrl: "app/joc.html"
         })
         .Class({
