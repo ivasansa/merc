@@ -4,9 +4,9 @@
             selector: 'appProva2',
             template: '<h1>Primera aplicació amb Angular2, {{nom}}</h1>'
         })
-        .Class({
+            .Class({
             constructor: function () {
-                this.nom = "Ivan"
+                this.nom = "Ivan";
             }
         });
 })(window.app || (window.app = {}));
