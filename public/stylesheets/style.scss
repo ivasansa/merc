@@ -11,28 +11,63 @@
 .container {
     height: 100%;
     width: 100%!important;
-        .row {
-            width: 100%;
-            height: calc(100%/7);
-            // position: absolute;
-            border-bottom: 1px solid black;
-        img { 
-            position:relative;
-            width: 5em;
-            float:left;
-            &:hover {
-                width:10em;
-                z-index: 99;
-                top: -4em;
-                left: -2em;
-                margin-right: -5em;
-            }
-        }
-        i {
-            font-size: 5em;
-        }
+    .row {
+        // width: 100%;
+        height: calc(100%/7);
+        // position: absolute;
+        border-bottom: 1px solid white;
         div {
             height: 100%;
+        }
+        div:nth-of-type(1){
+            position: relative;
+            // border-right: 1px solid black;
+            background: #3C3220;
+            i {
+                font-size: 5em;
+                color: white;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                margin-right: -50%;
+                transform: translate(-50%, -50%);
+            }
+            
+            .row {
+                border-bottom: none!important;
+                div:nth-of-type(2){
+                    position: relative;
+                    background: #3C3220!important;
+                    border-right: none!important;
+                    span {
+                        font-size: 3em;
+                        position: absolute;
+                        top: 50%;
+                        transform: translate(0, -50%);
+                        color: white;
+                    }
+                }
+            }
+            
+        }
+        div:nth-of-type(2){
+            // border-right: 1px solid black;
+            background: #564932;
+            img { 
+                position:relative;
+                width: 5em;
+                float:left;
+                &:hover {
+                    width:10em;
+                    z-index: 99;
+                    top: -4em;
+                    left: -2em;
+                    margin-right: -5em;
+                }    
+            }
+        }
+        &:nth-of-type(3){
+            border-bottom: 3px solid white;
         }
     }
 }

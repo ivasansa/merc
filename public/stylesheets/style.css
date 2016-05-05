@@ -16,22 +16,46 @@ h1 {
   height: 100%;
   width: 100% !important; }
   .container .row {
-    width: 100%;
     height: calc(100%/7);
-    border-bottom: 1px solid black; }
-    .container .row img {
-      position: relative;
-      width: 5em;
-      float: left; }
-      .container .row img:hover {
-        width: 10em;
-        z-index: 99;
-        top: -4em;
-        left: -2em;
-        margin-right: -5em; }
-    .container .row i {
-      font-size: 5em; }
+    border-bottom: 1px solid white; }
     .container .row div {
       height: 100%; }
+    .container .row div:nth-of-type(1) {
+      position: relative;
+      background: #3C3220; }
+      .container .row div:nth-of-type(1) i {
+        font-size: 5em;
+        color: white;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-right: -50%;
+        transform: translate(-50%, -50%); }
+      .container .row div:nth-of-type(1) .row {
+        border-bottom: none !important; }
+        .container .row div:nth-of-type(1) .row div:nth-of-type(2) {
+          position: relative;
+          background: #3C3220 !important;
+          border-right: none !important; }
+          .container .row div:nth-of-type(1) .row div:nth-of-type(2) span {
+            font-size: 3em;
+            position: absolute;
+            top: 50%;
+            transform: translate(0, -50%);
+            color: white; }
+    .container .row div:nth-of-type(2) {
+      background: #564932; }
+      .container .row div:nth-of-type(2) img {
+        position: relative;
+        width: 5em;
+        float: left; }
+        .container .row div:nth-of-type(2) img:hover {
+          width: 10em;
+          z-index: 99;
+          top: -4em;
+          left: -2em;
+          margin-right: -5em; }
+    .container .row:nth-of-type(3) {
+      border-bottom: 3px solid white; }
 
 /*# sourceMappingURL=style.css.map */
