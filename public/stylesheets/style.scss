@@ -9,15 +9,30 @@
 
 
 .container {
- height: 100%;
- width: 100%!important;
- .row {
-   width: 100%;
-   height: calc(100%/7);
-   // position: absolute;
-   border-bottom: 1px solid black;
-   img {
-     width: calc(100%/10);
-   }
- }
+    height: 100%;
+    width: 100%!important;
+        .row {
+            width: 100%;
+            height: calc(100%/7);
+            // position: absolute;
+            border-bottom: 1px solid black;
+        img { 
+            position:relative;
+            width: 5em;
+            float:left;
+            &:hover {
+                width:10em;
+                z-index: 99;
+                top: -4em;
+                left: -2em;
+                margin-right: -5em;
+            }
+        }
+        i {
+            font-size: 5em;
+        }
+        div {
+            height: 100%;
+        }
+    }
 }

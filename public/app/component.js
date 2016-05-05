@@ -9,11 +9,11 @@
             constructor: function () {
                 this.cards = [];
                 this.dragging = false;
-                this.card = new app.Card(1, 'ElRiperino', 10, 'melee', 'images/ElRiperino.png');
+                this.card = new app.Card(1, 'ElRiperino', 'CI', 10, 'melee', 'images/ElRiperino.png');
                 this.cards.push(this.card);
-                this.card = new app.Card(2, 'ElMartinenc', 10, 'knight', 'images/ElMartinenc.png');
+                this.card = new app.Card(2, 'ElMartinenc', 'CI', 10, 'knight', 'images/ElMartinenc.png');
                 this.cards.push(this.card);
-            },
+            },  
             handleDragEnter: function (ev) {
                 ev.preventDefault();
                 this.dragging = true;
@@ -45,9 +45,10 @@
 (function(app) {
   app.Card = Card;
 
-    function Card(id, name, power, type, image) {
+    function Card(id, name, clan, power, type, image) {
         this.id = id;
         this.name = name;
+        this.clan = clan;
         this.power = power;
         this.type = type;
         this.image = image;

@@ -22,6 +22,6 @@ router.get('/c9', function(req, res, next) {
   res.render("indexc9", {name: "ivan"});
 });
 
+  
 
-
-module.exports = router;
+module.exports = router;  

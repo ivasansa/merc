@@ -20,6 +20,18 @@ h1 {
     height: calc(100%/7);
     border-bottom: 1px solid black; }
     .container .row img {
-      width: calc(100%/10); }
+      position: relative;
+      width: 5em;
+      float: left; }
+      .container .row img:hover {
+        width: 10em;
+        z-index: 99;
+        top: -4em;
+        left: -2em;
+        margin-right: -5em; }
+    .container .row i {
+      font-size: 5em; }
+    .container .row div {
+      height: 100%; }
 
 /*# sourceMappingURL=style.css.map */

@@ -107,12 +107,18 @@
 <!--</div>-->
   <li *ngFor="#card of cards"><img src="{{card.image}}"/></li>
   <div class="container">
-    <div class="row"></div>
-    <div class="row"></div>
-    <div class="row"></div>
-    <div class="row" (drop)="handleDrop($event)" (dragenter)="handleDragEnter($event)" (dragleave)="handleDragLeave($event)" ondragover="return false"></div>
-    <div class="row" (drop)="handleDrop($event)" (dragenter)="handleDragEnter($event)" (dragleave)="handleDragLeave($event)" ondragover="return false"></div>
-    <div class="row" (drop)="handleDrop($event)" (dragenter)="handleDragEnter($event)" (dragleave)="handleDragLeave($event)" ondragover="return false"></div>
+    <div class="row"><div class="col-xs-1"><i class="fa fa-fort-awesome"></i></div></div>
+    <div class="row"><div class="col-xs-1"><i class="fa fa-fort-awesome"></i></div></div>
+    <div class="row"><div class="col-xs-1"><i class="fa fa-fort-awesome"></i></div></div>
+    <div class="row" >
+      <div class="col-xs-2"><i class="fa fa-fort-awesome"></i></div><div class="col-xs-10" (drop)="handleDrop($event)" (dragenter)="handleDragEnter($event)" (dragleave)="handleDragLeave($event)" ondragover="return false"></div>
+    </div>
+    <div class="row" >
+      <div class="col-xs-2"><i class="fa fa-fort-awesome"></i></div><div class="col-xs-10" (drop)="handleDrop($event)" (dragenter)="handleDragEnter($event)" (dragleave)="handleDragLeave($event)" ondragover="return false"></div>
+    </div>
+    <div class="row" >
+      <div class="col-xs-2"><i class="fa fa-fort-awesome"></i></div><div class="col-xs-10" (drop)="handleDrop($event)" (dragenter)="handleDragEnter($event)" (dragleave)="handleDragLeave($event)" ondragover="return false"></div>
+    </div>
     <div class="row"><img id="drag10" src="images/ElRiperino.png" draggable="true" (drag)="handleDrag($event)"></div>
   </div>
 </body>
