@@ -10,7 +10,7 @@ The game rules:
     -   Each player has his own deck of 20 cards.
     -   A game consists of 3 rounds. Wins the player who wins 2 of the 3.
     -   At the beggining of the game, a hand of 10 cards is delivered to each player. 
-    -   The initial hand remains the same throughtout the hole game. So the player has to be ware of not 
+    -   The initial hand remains the same throughtout the whole game. So the player has to be ware of not 
         wasting his cards on the first round.
     -   A round finishes when a player passes.
     -   A player passes when the "Pass" button is pressed or when he runs out of cards.
