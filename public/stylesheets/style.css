@@ -61,7 +61,7 @@ h1 {
             .container .row div:nth-of-type(2) ul li img:hover {
               height: 15em;
               z-index: 99;
-              top: -4em;
+              top: -6em;
               left: -2em;
               margin-right: -6em; }
     .container .row div:nth-of-type(3) {
@@ -109,7 +109,7 @@ h1 {
             .container .row .SHand ul li img:hover {
               height: 15em;
               z-index: 99;
-              top: -4em;
+              top: -6em;
               left: -2em;
               margin-right: -6em; }
     .container .row:nth-of-type(3) div:nth-of-type(1), .container .row:nth-of-type(3) div:nth-of-type(2) {
