@@ -15,7 +15,7 @@
         // width: 100%;
         height: calc(100%/7);
         // position: absolute;
-        border-bottom: 1px solid white;
+        // border-bottom: 1px solid white;
         div {
             height: 100%;
         }
@@ -23,6 +23,7 @@
             position: relative;
             // border-right: 1px solid black;
             background: #3C3220;
+            border-bottom: 1px solid white;
             i {
                 font-size: 5em;
                 color: white;
@@ -50,24 +51,109 @@
             }
             
         }
-        div:nth-of-type(2){
+        div:nth-of-type(2) {
             // border-right: 1px solid black;
             background: #564932;
-            img { 
-                position:relative;
-                width: 5em;
-                float:left;
-                &:hover {
-                    width:10em;
-                    z-index: 99;
-                    top: -4em;
-                    left: -2em;
-                    margin-right: -5em;
-                }    
+            border-bottom: 1px solid white;
+            ul {
+                display: flex;
+                list-style: none;
+                margin: 0px!important;
+                height: 100%;
+                padding: 0px;
+                li {
+                    height: 100%;
+                    img { 
+                        position:relative;
+                        height: 100%;
+                        float:left;
+                        &:hover {
+                            height: 15em;
+                            z-index: 99;
+                            top: -4em;
+                            left: -2em;
+                            margin-right: -6em;
+                        } 
+                    }
+                }
             }
         }
-        &:nth-of-type(3){
-            border-bottom: 3px solid white;
+        div:nth-of-type(3){
+            position: relative;
+            // border-right: 1px solid black;
+            background: #3C3220;
+            padding: 0px;
+            i {
+                font-size: 5em;
+                color: white;
+                position: absolute;
+                top: 50%;
+                left: 50%;
+                margin-right: -50%;
+                transform: translate(-50%, -50%);
+            }
+            button {
+                height: 100%;
+                width: 100%;
+            }
+            .row {
+                border-bottom: none!important;
+                div:nth-of-type(2){
+                    position: relative;
+                    background: #3C3220!important;
+                    border-right: none!important;
+                    span {
+                        font-size: 3em;
+                        position: absolute;
+                        top: 50%;
+                        transform: translate(0, -50%);
+                        color: white;
+                    }
+                }
+            }
+            
+            
+        }
+        
+        .SHand {
+            // border-right: 1px solid black;
+            background: #3C3220!important;
+            border-bottom: 1px solid white;
+            ul {
+                display: flex;
+                list-style: none;
+                margin: 0px!important;
+                height: 100%;
+                padding: 0px;
+                li {
+                    height: 100%;
+                    img { 
+                        position:relative;
+                        height: 100%;
+                        float:left;
+                        &:hover {
+                            height: 15em;
+                            z-index: 99;
+                            top: -4em;
+                            left: -2em;
+                            margin-right: -6em;
+                        } 
+                    }
+                }
+            }
+        }
+        &:nth-of-type(3) {
+            div:nth-of-type(1), div:nth-of-type(2) {
+                border-bottom: 3px solid white;
+            }
+        }
+        &:nth-of-type(6) {
+            div:nth-of-type(1) {
+                border-bottom: 2px solid #3C3220;
+            }    
+            div:nth-of-type(2) {
+                border-bottom: 1px solid #564932;
+            }
         }
     }
 }

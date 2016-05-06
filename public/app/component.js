@@ -9,10 +9,12 @@
             constructor: function () {
                 this.cards = [];
                 this.dragging = false;
-                this.card = new app.Card(1, 'ElRiperino', 'CI', 10, 'melee', 'images/ElRiperino.png');
+                this.card = new app.Card('ElRiperino', 'CI', 10, 'melee', 'images/ElRiperino.png');
                 this.cards.push(this.card);
-                this.card = new app.Card(2, 'ElMartinenc', 'CI', 10, 'knight', 'images/ElMartinenc.png');
+                this.card = new app.Card('ElMartinene', 'CI', 10, 'knight', 'images/prova.png');
                 this.cards.push(this.card);
+                
+                this.SRanged = [];
             },  
             handleDragEnter: function (ev) {
                 ev.preventDefault();
@@ -26,7 +28,8 @@
             },
             handleDrag: function (ev) {
                 ev.dataTransfer.setData("text", ev.target.id);
-                console.log("drag");
+                console.log("GETDATA" +ev.target.id);
+                // ev.dataTransfer.clearData();
             },
             handleDrop: function (ev) {
                 this.dragging = false;
@@ -34,9 +37,15 @@
                 var data = ev.dataTransfer.getData("text");
                 var node = document.createElement("img");
                 node.src = data;
-                ev.target.appendChild(node);
-                this.cards.push(data);
-                console.log(this.card.name);
+                console.log(data);
+                // ev.target.appendChild(node);
+                
+                // ev.target.appendChild(ng.core.ViewChild(data));
+                
+                this.SRanged.push(node);
+            
+                console.log("node"+this.cards.indexOf(data));
+                ev.dataTransfer.clearData();
             }
         });
 })(window.app || (window.app = {}));
@@ -45,8 +54,7 @@
 (function(app) {
   app.Card = Card;
 
-    function Card(id, name, clan, power, type, image) {
-        this.id = id;
+    function Card(name, clan, power, type, image) {
         this.name = name;
         this.clan = clan;
         this.power = power;
