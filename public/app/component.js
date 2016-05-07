@@ -13,6 +13,8 @@
                 this.cards.push(this.card);
                 this.card = new app.Card('ElMartinene', 'CI', 10, 'knight', 'images/prova.png');
                 this.cards.push(this.card);
+                this.card = new app.Card('Blackburn', 'CI', 10, 'archer', 'images/Blackburn.png');
+                this.cards.push(this.card);
                 
                 this.SRanged = [];
             },  
