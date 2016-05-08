@@ -16,6 +16,9 @@
                 this.card = new app.Card('Blackburn', 'CI', 10, 'archer', 'images/Blackburn.png');
                 this.cards.push(this.card);
                 
+                this.Map = [];
+                this.SMelee = [];
+                this.SCav = [];
                 this.SRanged = [];
             },  
             handleDragEnter: function (ev) {
@@ -48,7 +51,58 @@
             
                 console.log("node"+this.cards.indexOf(data));
                 ev.dataTransfer.clearData();
+            },
+            handleDropSCav: function (ev) {
+                this.dragging = false;
+                ev.preventDefault();
+                var data = ev.dataTransfer.getData("text");
+                var node = document.createElement("img");
+                node.src = data;
+                console.log("SCav");
+                // ev.target.appendChild(node);
+                
+                // ev.target.appendChild(ng.core.ViewChild(data));
+                
+                this.SCav.push(node);
+            
+                console.log("node"+this.cards.indexOf(data));
+                ev.dataTransfer.clearData();
+            },
+            
+            handleDropSMelee: function (ev) {
+                this.dragging = false;
+                ev.preventDefault();
+                var data = ev.dataTransfer.getData("text");
+                var node = document.createElement("img");
+                node.src = data;
+                console.log("SCav");
+                // ev.target.appendChild(node);
+                
+                // ev.target.appendChild(ng.core.ViewChild(data));
+                
+                this.SMelee.push(node);
+            
+                console.log("node"+this.cards.indexOf(data));
+                ev.dataTransfer.clearData();
+            },
+            
+            handleDropMap: function (ev) {
+                this.dragging = false;
+                ev.preventDefault();
+                var data = ev.dataTransfer.getData("text");
+                var node = document.createElement("img");
+                node.src = data;
+                console.log("SCav");
+                // ev.target.appendChild(node);
+                
+                // ev.target.appendChild(ng.core.ViewChild(data));
+                
+                this.Map.push(node);
+            
+                console.log("node"+this.cards.indexOf(data));
+                ev.dataTransfer.clearData();
             }
+            
         });
 })(window.app || (window.app = {}));
 
@@ -62,5 +116,27 @@
         this.power = power;
         this.type = type;
         this.image = image;
+    }
+})(window.app || (window.app = {}));
+
+(function(app) {
+  app.Game = Game;
+
+    function Card(FPlayer, SPlayer, FDeck, SDeck) {
+        this.FPlayer = FPlayer;
+        this.SPlayer = SPlayer;
+        this.FDeck = FDeck;
+        this.FDiscards;
+        this.FHand;
+        this.FRanged;
+        this.FCav;
+        this.FMelee;
+        this.SMelee;
+        this.SCav;
+        this.SRanged;
+        this.SHand;
+        this.SDiscards;
+        this.SDeck;
+        this.map;
     }
 })(window.app || (window.app = {}));
