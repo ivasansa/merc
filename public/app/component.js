@@ -34,7 +34,7 @@
                 // this.game.SHand.push(this.card);
                 this.card = new app.Merc('Blackburn', 'CI', 3, 'ranged', 'images/Blackburn.png');
                 this.game.SHand.push(this.card);
-                this.card = new app.Map('Ruins', 1, 3, 0, 'images/prova.png');
+                this.card = new app.Map('Ruins', 1, 2, 1, 'images/prova.png');
                 this.game.SHand.push(this.card);
                 
                 console.log(this.game.SHand);
@@ -54,12 +54,12 @@
                     res = card.slice(-img);
                     if((res == this.game.SHand[i].image)&&(this.game.SHand[i].constructor.name == "Map")){
                         this.game.map.push(node);
-                        this.game.points[0] += this.game.SHand[i].rangedBuff;
-                        this.game.points[1] += this.game.SHand[i].cavBuff;
-                        this.game.points[2] += this.game.SHand[i].meleeBuff;
-                        this.game.points[3] += this.game.SHand[i].meleeBuff;
-                        this.game.points[4] += this.game.SHand[i].cavBuff;
-                        this.game.points[5] += this.game.SHand[i].rangedBuff;
+                        this.game.points[0] *= this.game.SHand[i].rangedBuff;
+                        this.game.points[1] *= this.game.SHand[i].cavBuff;
+                        this.game.points[2] *= this.game.SHand[i].meleeBuff;
+                        this.game.points[3] *= this.game.SHand[i].meleeBuff;
+                        this.game.points[4] *= this.game.SHand[i].cavBuff;
+                        this.game.points[5] *= this.game.SHand[i].rangedBuff;
                         this.game.SHand.splice(i, 1);
                     }
                 }
@@ -90,12 +90,26 @@
                 
                 var img = "";
                 var res = "";
+                var buff = 1;
                 for(var i = 0; i < this.game.SHand.length; ++i){
                     img = this.game.SHand[i].image.length;
                     
                     res = card.slice(-img);
                     if(res == this.game.SHand[i].image){
-                        this.game.points[box] += this.game.SHand[i].power;
+                        if(undefined != this.game.map[0]){
+                            switch(box) {
+                                case 3:
+                                    buff = this.game.map.meleeBuff;
+                                    break;
+                                case 4:
+                                    buff = this.game.map.cavBuff;
+                                    break;
+                                case 5:
+                                    buff = this.game.map.rangedBuff;
+                                    break;
+                            }
+                        }
+                        this.game.points[box] += (this.game.SHand[i].power*buff);
                         this.game.SHand.splice(i, 1);
                     }
                 }
@@ -205,9 +219,9 @@
 
     function Map(name, rangedBuff, cavBuff, meleeBuff, image) {
         this.name = name;
-        this.rangedBuff = rangedBuff;
-        this.cavBuff = cavBuff;
         this.meleeBuff = meleeBuff;
+        this.cavBuff = cavBuff;
+        this.rangedBuff = rangedBuff;
         this.image = image;
     }
 })(window.app || (window.app = {}));
