@@ -28,48 +28,74 @@
                 
                 this.game = new app.Game("Player1", "Player2", this.cards, this.cards);
                 
-                this.card = new app.Card('ElRiperino', 'CI', 1, 'melee', 'images/ElRiperino.png');
+                this.card = new app.Merc('ElRiperino', 'CI', 1, 'melee', 'images/ElRiperino.png');
                 this.game.SHand.push(this.card);
-                this.card = new app.Card('ElMartinene', 'CI', 2, 'cav', 'images/prova.png');
+                // this.card = new app.Card('ElMartinene', 'CI', 2, 'cav', 'images/prova.png');
+                // this.game.SHand.push(this.card);
+                this.card = new app.Merc('Blackburn', 'CI', 3, 'ranged', 'images/Blackburn.png');
                 this.game.SHand.push(this.card);
-                this.card = new app.Card('Blackburn', 'CI', 3, 'ranged', 'images/Blackburn.png');
+                this.card = new app.Map('Ruins', 1, 3, 0, 'images/prova.png');
                 this.game.SHand.push(this.card);
-                
                 
                 console.log(this.game.SHand);
                 
                 
             },
-            addPoints: function (card, box) {
-                // console.log("add "+card);
-                // console.log(this.SHand[0]);
+            playMap: function (card) {
+                var node = document.createElement("img");
+                node.src = card;
+            
+                
                 var img = "";
                 var res = "";
                 for(var i = 0; i < this.game.SHand.length; ++i){
                     img = this.game.SHand[i].image.length;
                     
                     res = card.slice(-img);
-                    // console.log("1: "+res);
-                    // console.log("1: "+this.SHand[i].image);
-                    if(res == this.game.SHand[i].image){
-                        this.game.points[box] += this.game.SHand[i].power;
-                        // console.log("Points: "+this.points[box]);
+                    if((res == this.game.SHand[i].image)&&(this.game.SHand[i].constructor.name == "Map")){
+                        this.game.map.push(node);
+                        this.game.points[0] += this.game.SHand[i].rangedBuff;
+                        this.game.points[1] += this.game.SHand[i].cavBuff;
+                        this.game.points[2] += this.game.SHand[i].meleeBuff;
+                        this.game.points[3] += this.game.SHand[i].meleeBuff;
+                        this.game.points[4] += this.game.SHand[i].cavBuff;
+                        this.game.points[5] += this.game.SHand[i].rangedBuff;
+                        this.game.SHand.splice(i, 1);
                     }
                 }
             },
-            removeCardFromHand: function (card) {
-                // console.log("remove "+card);
-                // console.log(this.SHand[0]);
+            playCard: function (card, box) {
+                var node = document.createElement("img");
+                node.src = card;
+                switch(box) {
+                    case 0:
+                        this.game.FRanged.push(node);
+                        break;
+                    case 1:
+                        this.game.FCav.push(node);
+                        break;
+                    case 2:
+                        this.game.FMelee.push(node);
+                        break;
+                    case 3:
+                        this.game.SMelee.push(node);
+                        break;
+                    case 4:
+                        this.game.SCav.push(node);
+                        break;
+                    case 5:
+                        this.game.SRanged.push(node);
+                        break;
+                }
+                
                 var img = "";
                 var res = "";
                 for(var i = 0; i < this.game.SHand.length; ++i){
                     img = this.game.SHand[i].image.length;
                     
                     res = card.slice(-img);
-                    // console.log("1: "+res);
-                    // console.log("1: "+this.SHand[i].image);
                     if(res == this.game.SHand[i].image){
-                        // console.log("found");
+                        this.game.points[box] += this.game.SHand[i].power;
                         this.game.SHand.splice(i, 1);
                     }
                 }
@@ -93,16 +119,14 @@
                 this.dragging = false;
                 ev.preventDefault();
                 var data = ev.dataTransfer.getData("text");
-                var node = document.createElement("img");
-                node.src = data;
+                // var node = document.createElement("img");
+                // node.src = data;
                 // console.log(data);
-                // ev.target.appendChild(node);
+                // // ev.target.appendChild(node);
                 
-                // ev.target.appendChild(ng.core.ViewChild(data));
-                
-                this.game.SRanged.push(node);
-                this.addPoints(data, 5);
-                this.removeCardFromHand(data);
+                // // ev.target.appendChild(ng.core.ViewChild(data));
+                // this.game.SRanged.push(node);
+                this.playCard(data,5);
                 // console.log("node"+this.cards.indexOf(data));
                 ev.dataTransfer.clearData();
             },
@@ -110,16 +134,16 @@
                 this.dragging = false;
                 ev.preventDefault();
                 var data = ev.dataTransfer.getData("text");
-                var node = document.createElement("img");
-                node.src = data;
+                // var node = document.createElement("img");
+                // node.src = data;
                 // console.log("SCav");
                 // ev.target.appendChild(node);
                 
                 // ev.target.appendChild(ng.core.ViewChild(data));
                 
-                this.game.SCav.push(node);
-                this.addPoints(data, 4);
-                this.removeCardFromHand(data);
+                // this.game.SCav.push(node);
+                // this.addPoints(data, 4);
+                this.playCard(data,4);
                 // console.log("node"+this.cards.indexOf(data));
                 ev.dataTransfer.clearData();
             },
@@ -128,16 +152,16 @@
                 this.dragging = false;
                 ev.preventDefault();
                 var data = ev.dataTransfer.getData("text");
-                var node = document.createElement("img");
-                node.src = data;
+                // var node = document.createElement("img");
+                // node.src = data;
                 // console.log("SCav");
                 // ev.target.appendChild(node);
                 
                 // ev.target.appendChild(ng.core.ViewChild(data));
                 
-                this.game.SMelee.push(node);
-                this.addPoints(data, 3);
-                this.removeCardFromHand(data);
+                // this.game.SMelee.push(node);
+                // this.addPoints(data, 3);
+                this.playCard(data,3);
                 // console.log("node"+this.cards.indexOf(data));
                 ev.dataTransfer.clearData();
             },
@@ -146,15 +170,15 @@
                 this.dragging = false;
                 ev.preventDefault();
                 var data = ev.dataTransfer.getData("text");
-                var node = document.createElement("img");
-                node.src = data;
+                // var node = document.createElement("img");
+                // node.src = data;
                 // console.log("SCav");
                 // ev.target.appendChild(node);
                 
                 // ev.target.appendChild(ng.core.ViewChild(data));
                 if(this.game.map.length == 0){
-                    this.game.map.push(node);
-                    this.removeCardFromHand(data);
+                    // this.game.map.push(node);
+                    this.playMap(data);
                 }
                 // console.log("node"+this.cards.indexOf(data));
                 ev.dataTransfer.clearData();
@@ -165,13 +189,25 @@
 
 
 (function(app) {
-  app.Card = Card;
+  app.Merc = Merc;
 
-    function Card(name, clan, power, type, image) {
+    function Merc(name, clan, power, type, image) {
         this.name = name;
         this.clan = clan;
         this.power = power;
         this.type = type;
+        this.image = image;
+    }
+})(window.app || (window.app = {}));
+
+(function(app) {
+  app.Map = Map;
+
+    function Map(name, rangedBuff, cavBuff, meleeBuff, image) {
+        this.name = name;
+        this.rangedBuff = rangedBuff;
+        this.cavBuff = cavBuff;
+        this.meleeBuff = meleeBuff;
         this.image = image;
     }
 })(window.app || (window.app = {}));
@@ -196,5 +232,7 @@
         this.SDeck = [];
         this.map = [];
         this.points = [0,0,0,0,0,0];
+        // this.zones = [this.FDeck,this.FDiscards,this.FHand,this.FRanged,this.FCav,this.FMelee,
+        //               this.SMelee, this.SCav,this.SRanged,this.SHand,this.SDiscards,this.SDeck];
     }
 })(window.app || (window.app = {}));
