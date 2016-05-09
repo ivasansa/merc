@@ -8,8 +8,8 @@
                     <div class="col-xs-6"><span>10</span></div>
                 </div>
             </div>
-            <div class="col-xs-8"></div>
-            <div class="col-xs-2"></div>
+            <div class="col-xs-9"></div>
+            <div class="col-xs-1"></div>
         </div>
         <div class="row">
             <div class="col-xs-2">
@@ -18,8 +18,8 @@
                     <div class="col-xs-6"><span>10</span></div>
                 </div>
             </div>
-            <div class="col-xs-8"></div>
-            <div class="col-xs-2"></div>
+            <div class="col-xs-9"></div>
+            <div class="col-xs-1"></div>
         </div>
         <div class="row">
             <div class="col-xs-2">
@@ -28,8 +28,10 @@
                     <div class="col-xs-6"><span>10</span></div>
                 </div>
             </div>
-            <div class="col-xs-8"></div>
-            <div class="col-xs-2"></div>
+            <div class="col-xs-9"></div>
+            <div class="col-xs-1">
+                <h1>Map</h1>
+            </div>
         </div>
         <div class="row" >
             <div class="col-xs-2">
@@ -38,11 +40,11 @@
                     <div class="col-xs-6"><span>10</span></div>
                 </div>
             </div>
-            <div class="col-xs-8" (drop)="handleDropSMelee($event)" (dragenter)="handleDragEnter($event)" (dragleave)="handleDragLeave($event)" ondragover="return false">
+            <div class="col-xs-9" (drop)="handleDropSMelee($event)" (dragenter)="handleDragEnter($event)" (dragleave)="handleDragLeave($event)" ondragover="return false">
                 <ul><li *ngFor="#card of SMelee"><img id="{{card.name}}" src="{{card.src}}"/></li></ul>                
             </div>
             
-            <div class="col-xs-2" (drop)="handleDropMap($event)" (dragenter)="handleDragEnter($event)" (dragleave)="handleDragLeave($event)" ondragover="return false">
+            <div class="col-xs-1" (drop)="handleDropMap($event)" (dragenter)="handleDragEnter($event)" (dragleave)="handleDragLeave($event)" ondragover="return false">
                 <ul><li *ngFor="#card of Map"><img id="{{card.name}}" src="{{card.src}}"/></li></ul>
             </div>
         </div>
@@ -53,11 +55,11 @@
                     <div class="col-xs-6"><span>10</span></div>
                 </div>
             </div>
-            <div class="col-xs-8" (drop)="handleDropSCav($event)" (dragenter)="handleDragEnter($event)" (dragleave)="handleDragLeave($event)" ondragover="return false">
+            <div class="col-xs-9" (drop)="handleDropSCav($event)" (dragenter)="handleDragEnter($event)" (dragleave)="handleDragLeave($event)" ondragover="return false">
                 <ul><li *ngFor="#card of SCav"><img id="{{card.name}}" src="{{card.src}}"/></li></ul>
             </div>
             
-            <div class="col-xs-2"></div>
+            <div class="col-xs-1"></div>
         </div>
         <div class="row" >
             <div class="col-xs-2">
@@ -66,10 +68,10 @@
                     <div class="col-xs-6"><span>10</span></div>
                 </div>
             </div>
-            <div class="col-xs-8" (drop)="handleDrop($event)" (dragenter)="handleDragEnter($event)" (dragleave)="handleDragLeave($event)" ondragover="return false">
+            <div class="col-xs-9" (drop)="handleDrop($event)" (dragenter)="handleDragEnter($event)" (dragleave)="handleDragLeave($event)" ondragover="return false">
                 <ul><li *ngFor="#card of SRanged"><img id="{{card.name}}" src="{{card.src}}"/></li></ul>                
             </div>
-            <div class="col-xs-2"> 
+            <div class="col-xs-1"> 
                 <button type="button" class="btn btn-danger"><i class="fa fa-flag"></i></button>
             </div>
         </div>

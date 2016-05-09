@@ -9,12 +9,15 @@
             constructor: function () {
                 this.cards = [];
                 this.dragging = false;
+                
                 this.card = new app.Card('ElRiperino', 'CI', 10, 'melee', 'images/ElRiperino.png');
                 this.cards.push(this.card);
                 this.card = new app.Card('ElMartinene', 'CI', 10, 'knight', 'images/prova.png');
                 this.cards.push(this.card);
                 this.card = new app.Card('Blackburn', 'CI', 10, 'archer', 'images/Blackburn.png');
                 this.cards.push(this.card);
+                
+                this.game = new app.Game("Player1", "Player2", this.cards, this.cards);
                 
                 this.Map = [];
                 this.SMelee = [];
@@ -96,9 +99,9 @@
                 // ev.target.appendChild(node);
                 
                 // ev.target.appendChild(ng.core.ViewChild(data));
-                
-                this.Map.push(node);
-            
+                if(this.Map.length == 0){
+                    this.Map.push(node);
+                }
                 console.log("node"+this.cards.indexOf(data));
                 ev.dataTransfer.clearData();
             }
@@ -122,7 +125,7 @@
 (function(app) {
   app.Game = Game;
 
-    function Card(FPlayer, SPlayer, FDeck, SDeck) {
+    function Game(FPlayer, SPlayer, FDeck, SDeck) {
         this.FPlayer = FPlayer;
         this.SPlayer = SPlayer;
         this.FDeck = FDeck;
