@@ -7,52 +7,103 @@
         })
             .Class({
             constructor: function () {
-                this.cards = [];
+                // this.cards = [];
                 this.dragging = false;
                 
-                this.card = new app.Card('ElRiperino', 'CI', 10, 'melee', 'images/ElRiperino.png');
-                this.cards.push(this.card);
-                this.card = new app.Card('ElMartinene', 'CI', 10, 'knight', 'images/prova.png');
-                this.cards.push(this.card);
-                this.card = new app.Card('Blackburn', 'CI', 10, 'archer', 'images/Blackburn.png');
-                this.cards.push(this.card);
+                // this.Map = [];
+                // this.SMelee = [];
+                // this.SCav = [];
+                // this.SRanged = [];
+                // this.FDeck = [];
+                // this.FDiscards = [];
+                // this.FHand = [];
+                // this.FRanged = [];
+                // this.FCav = [];
+                // this.FMelee = [];
+                // this.SHand = [];
+                // this.SDiscards = [];
+                // this.SDeck = [];
+                
+                // this.points = [0,0,0,0,0,0];
                 
                 this.game = new app.Game("Player1", "Player2", this.cards, this.cards);
                 
-                this.Map = [];
-                this.SMelee = [];
-                this.SCav = [];
-                this.SRanged = [];
-            },  
+                this.card = new app.Card('ElRiperino', 'CI', 1, 'melee', 'images/ElRiperino.png');
+                this.game.SHand.push(this.card);
+                this.card = new app.Card('ElMartinene', 'CI', 2, 'cav', 'images/prova.png');
+                this.game.SHand.push(this.card);
+                this.card = new app.Card('Blackburn', 'CI', 3, 'ranged', 'images/Blackburn.png');
+                this.game.SHand.push(this.card);
+                
+                
+                console.log(this.game.SHand);
+                
+                
+            },
+            addPoints: function (card, box) {
+                // console.log("add "+card);
+                // console.log(this.SHand[0]);
+                var img = "";
+                var res = "";
+                for(var i = 0; i < this.game.SHand.length; ++i){
+                    img = this.game.SHand[i].image.length;
+                    
+                    res = card.slice(-img);
+                    // console.log("1: "+res);
+                    // console.log("1: "+this.SHand[i].image);
+                    if(res == this.game.SHand[i].image){
+                        this.game.points[box] += this.game.SHand[i].power;
+                        // console.log("Points: "+this.points[box]);
+                    }
+                }
+            },
+            removeCardFromHand: function (card) {
+                // console.log("remove "+card);
+                // console.log(this.SHand[0]);
+                var img = "";
+                var res = "";
+                for(var i = 0; i < this.game.SHand.length; ++i){
+                    img = this.game.SHand[i].image.length;
+                    
+                    res = card.slice(-img);
+                    // console.log("1: "+res);
+                    // console.log("1: "+this.SHand[i].image);
+                    if(res == this.game.SHand[i].image){
+                        // console.log("found");
+                        this.game.SHand.splice(i, 1);
+                    }
+                }
+            },
             handleDragEnter: function (ev) {
                 ev.preventDefault();
                 this.dragging = true;
-                console.log(this.dragging);
+                // console.log(this.dragging);
             },
             handleDragLeave: function (ev) {
                 ev.preventDefault();
                 this.dragging = false;
-                console.log(this.dragging);
+                // console.log(this.dragging);
             },
             handleDrag: function (ev) {
                 ev.dataTransfer.setData("text", ev.target.id);
-                console.log("GETDATA" +ev.target.id);
+                // console.log("GETDATA" +ev.target.id);
                 // ev.dataTransfer.clearData();
             },
-            handleDrop: function (ev) {
+            handleDropSRanged: function (ev) {
                 this.dragging = false;
                 ev.preventDefault();
                 var data = ev.dataTransfer.getData("text");
                 var node = document.createElement("img");
                 node.src = data;
-                console.log(data);
+                // console.log(data);
                 // ev.target.appendChild(node);
                 
                 // ev.target.appendChild(ng.core.ViewChild(data));
                 
-                this.SRanged.push(node);
-            
-                console.log("node"+this.cards.indexOf(data));
+                this.game.SRanged.push(node);
+                this.addPoints(data, 5);
+                this.removeCardFromHand(data);
+                // console.log("node"+this.cards.indexOf(data));
                 ev.dataTransfer.clearData();
             },
             handleDropSCav: function (ev) {
@@ -61,14 +112,15 @@
                 var data = ev.dataTransfer.getData("text");
                 var node = document.createElement("img");
                 node.src = data;
-                console.log("SCav");
+                // console.log("SCav");
                 // ev.target.appendChild(node);
                 
                 // ev.target.appendChild(ng.core.ViewChild(data));
                 
-                this.SCav.push(node);
-            
-                console.log("node"+this.cards.indexOf(data));
+                this.game.SCav.push(node);
+                this.addPoints(data, 4);
+                this.removeCardFromHand(data);
+                // console.log("node"+this.cards.indexOf(data));
                 ev.dataTransfer.clearData();
             },
             
@@ -78,14 +130,15 @@
                 var data = ev.dataTransfer.getData("text");
                 var node = document.createElement("img");
                 node.src = data;
-                console.log("SCav");
+                // console.log("SCav");
                 // ev.target.appendChild(node);
                 
                 // ev.target.appendChild(ng.core.ViewChild(data));
                 
-                this.SMelee.push(node);
-            
-                console.log("node"+this.cards.indexOf(data));
+                this.game.SMelee.push(node);
+                this.addPoints(data, 3);
+                this.removeCardFromHand(data);
+                // console.log("node"+this.cards.indexOf(data));
                 ev.dataTransfer.clearData();
             },
             
@@ -95,14 +148,15 @@
                 var data = ev.dataTransfer.getData("text");
                 var node = document.createElement("img");
                 node.src = data;
-                console.log("SCav");
+                // console.log("SCav");
                 // ev.target.appendChild(node);
                 
                 // ev.target.appendChild(ng.core.ViewChild(data));
-                if(this.Map.length == 0){
-                    this.Map.push(node);
+                if(this.game.map.length == 0){
+                    this.game.map.push(node);
+                    this.removeCardFromHand(data);
                 }
-                console.log("node"+this.cards.indexOf(data));
+                // console.log("node"+this.cards.indexOf(data));
                 ev.dataTransfer.clearData();
             }
             
@@ -129,17 +183,18 @@
         this.FPlayer = FPlayer;
         this.SPlayer = SPlayer;
         this.FDeck = FDeck;
-        this.FDiscards;
-        this.FHand;
-        this.FRanged;
-        this.FCav;
-        this.FMelee;
-        this.SMelee;
-        this.SCav;
-        this.SRanged;
-        this.SHand;
-        this.SDiscards;
-        this.SDeck;
-        this.map;
+        this.FDiscards = [];
+        this.FHand = [];
+        this.FRanged = [];
+        this.FCav = [];
+        this.FMelee = [];
+        this.SMelee = [];
+        this.SCav = [];
+        this.SRanged = [];
+        this.SHand = [];
+        this.SDiscards = [];
+        this.SDeck = [];
+        this.map = [];
+        this.points = [0,0,0,0,0,0];
     }
 })(window.app || (window.app = {}));
