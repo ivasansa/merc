@@ -53,6 +53,9 @@
                     
                     res = card.slice(-img);
                     if((res == this.game.SHand[i].image)&&(this.game.SHand[i].constructor.name == "Map")){
+                        node.rangedBuff = this.game.SHand[i].rangedBuff;
+                        node.cavBuff = this.game.SHand[i].cavBuff;
+                        node.meleeBuff = this.game.SHand[i].meleeBuff;
                         this.game.map.push(node);
                         this.game.points[0] *= this.game.SHand[i].rangedBuff;
                         this.game.points[1] *= this.game.SHand[i].cavBuff;
@@ -98,18 +101,28 @@
                     if(res == this.game.SHand[i].image){
                         if(undefined != this.game.map[0]){
                             switch(box) {
+                                case 0:
+                                    buff *= this.game.map[0].rangedBuff;
+                                    break;
+                                case 1:
+                                    buff *= this.game.map[0].cavBuff;
+                                    break;
+                                case 2:
+                                    buff *= this.game.map[0].meleeBuff;
+                                    break;
                                 case 3:
-                                    buff = this.game.map.meleeBuff;
+                                    buff *= this.game.map[0].meleeBuff;
                                     break;
                                 case 4:
-                                    buff = this.game.map.cavBuff;
+                                    buff *= this.game.map[0].cavBuff;
                                     break;
                                 case 5:
-                                    buff = this.game.map.rangedBuff;
+                                    buff *= this.game.map[0].rangedBuff;
                                     break;
                             }
                         }
                         this.game.points[box] += (this.game.SHand[i].power*buff);
+                        console.log("After: "+buff);
                         this.game.SHand.splice(i, 1);
                     }
                 }

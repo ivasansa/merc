@@ -29,7 +29,7 @@
                 </div>
             </div>
             <div class="col-xs-9"></div>
-            <div class="col-xs-1">
+            <div class="col-xs-1" (drop)="handleDropMap($event)" (dragenter)="handleDragEnter($event)" (dragleave)="handleDragLeave($event)" ondragover="return false">
                 <h1>Map</h1>
                 <h1><i class="fa fa-map-o"></i></h1>
             </div>
