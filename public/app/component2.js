@@ -1,12 +1,14 @@
 (function (app) {
-    app.AppComponentDos =
+    app.AI =
         ng.core.Component({
-            selector: 'appProva2',
-            template: '<h1>Primera aplicació amb Angular2, {{nom}}</h1>'
+            selector: 'joc',
+            templateUrl: "app/joc.html",
+            directives: [app.AppComponent]
         })
             .Class({
             constructor: function () {
                 this.nom = "Ivan";
+                console.log(this.nom);
             }
         });
 })(window.app || (window.app = {}));

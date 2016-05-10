@@ -2,29 +2,13 @@
     app.AppComponent =
         ng.core.Component({
             selector: 'joc',
-            templateUrl: "app/joc.html"
-
+            templateUrl: "app/joc.html",
         })
             .Class({
             constructor: function () {
                 // this.cards = [];
                 this.dragging = false;
-                
-                // this.Map = [];
-                // this.SMelee = [];
-                // this.SCav = [];
-                // this.SRanged = [];
-                // this.FDeck = [];
-                // this.FDiscards = [];
-                // this.FHand = [];
-                // this.FRanged = [];
-                // this.FCav = [];
-                // this.FMelee = [];
-                // this.SHand = [];
-                // this.SDiscards = [];
-                // this.SDeck = [];
-                
-                // this.points = [0,0,0,0,0,0];
+
                 
                 this.game = new app.Game("Player1", "Player2", this.cards, this.cards);
                 
@@ -67,38 +51,64 @@
                     }
                 }
             },
+            
             playCard: function (card, box) {
+                /*Recover the image path of the card and make it a proper image*/
                 var node = document.createElement("img");
                 node.src = card;
-                switch(box) {
-                    case 0:
-                        this.game.FRanged.push(node);
-                        break;
-                    case 1:
-                        this.game.FCav.push(node);
-                        break;
-                    case 2:
-                        this.game.FMelee.push(node);
-                        break;
-                    case 3:
-                        this.game.SMelee.push(node);
-                        break;
-                    case 4:
-                        this.game.SCav.push(node);
-                        break;
-                    case 5:
-                        this.game.SRanged.push(node);
-                        break;
-                }
+                
                 
                 var img = "";
                 var res = "";
                 var buff = 1;
+                var cardTypeF = -1;
+                var cardTypeS = -1;
+                
+            
+                /*Loop over the player's hand to check what card ha had just played*/
                 for(var i = 0; i < this.game.SHand.length; ++i){
                     img = this.game.SHand[i].image.length;
-                    
                     res = card.slice(-img);
-                    if(res == this.game.SHand[i].image){
+                    /*In order to avoid misplacing a card, we check its type*/
+                    switch(this.game.SHand[i].type) {
+                        case "melee":
+                            cardTypeF = 2;
+                            cardTypeS = 3;
+                            break;
+                        case "cav":
+                            cardTypeF = 1;
+                            cardTypeS = 4;
+                            break;
+                        case "ranged":
+                            cardTypeF = 0;
+                            cardTypeS = 5;
+                            break;
+                    }
+                    /*If it is the card he just played and it's the right place...*/
+                    if((res == this.game.SHand[i].image)&&((box == cardTypeF)||(box == cardTypeS))&&
+                        ((this.game.SHand[i].constructor.name == "Merc"))){
+                        /*...Place it on the zone*/
+                        switch(box) {
+                            case 0:
+                                this.game.FRanged.push(node);
+                                break;
+                            case 1:
+                                this.game.FCav.push(node);
+                                break;
+                            case 2:
+                                this.game.FMelee.push(node);
+                                break;
+                            case 3:
+                                this.game.SMelee.push(node);
+                                break;
+                            case 4:
+                                this.game.SCav.push(node);
+                                break;
+                            case 5:
+                                this.game.SRanged.push(node);
+                                break;
+                        }
+                        /*Check if a map is on the board*/
                         if(undefined != this.game.map[0]){
                             switch(box) {
                                 case 0:
@@ -121,57 +131,45 @@
                                     break;
                             }
                         }
+                        /*Add the points*/
                         this.game.points[box] += (this.game.SHand[i].power*buff);
-                        console.log("After: "+buff);
+                        /*Remove the card from the hand*/
                         this.game.SHand.splice(i, 1);
                     }
                 }
             },
+            
             handleDragEnter: function (ev) {
                 ev.preventDefault();
                 this.dragging = true;
                 // console.log(this.dragging);
             },
+            
             handleDragLeave: function (ev) {
                 ev.preventDefault();
                 this.dragging = false;
                 // console.log(this.dragging);
             },
+            
             handleDrag: function (ev) {
                 ev.dataTransfer.setData("text", ev.target.id);
                 // console.log("GETDATA" +ev.target.id);
                 // ev.dataTransfer.clearData();
             },
+            
             handleDropSRanged: function (ev) {
                 this.dragging = false;
                 ev.preventDefault();
                 var data = ev.dataTransfer.getData("text");
-                // var node = document.createElement("img");
-                // node.src = data;
-                // console.log(data);
-                // // ev.target.appendChild(node);
-                
-                // // ev.target.appendChild(ng.core.ViewChild(data));
-                // this.game.SRanged.push(node);
                 this.playCard(data,5);
-                // console.log("node"+this.cards.indexOf(data));
                 ev.dataTransfer.clearData();
             },
+            
             handleDropSCav: function (ev) {
                 this.dragging = false;
                 ev.preventDefault();
                 var data = ev.dataTransfer.getData("text");
-                // var node = document.createElement("img");
-                // node.src = data;
-                // console.log("SCav");
-                // ev.target.appendChild(node);
-                
-                // ev.target.appendChild(ng.core.ViewChild(data));
-                
-                // this.game.SCav.push(node);
-                // this.addPoints(data, 4);
                 this.playCard(data,4);
-                // console.log("node"+this.cards.indexOf(data));
                 ev.dataTransfer.clearData();
             },
             
@@ -179,17 +177,7 @@
                 this.dragging = false;
                 ev.preventDefault();
                 var data = ev.dataTransfer.getData("text");
-                // var node = document.createElement("img");
-                // node.src = data;
-                // console.log("SCav");
-                // ev.target.appendChild(node);
-                
-                // ev.target.appendChild(ng.core.ViewChild(data));
-                
-                // this.game.SMelee.push(node);
-                // this.addPoints(data, 3);
                 this.playCard(data,3);
-                // console.log("node"+this.cards.indexOf(data));
                 ev.dataTransfer.clearData();
             },
             
@@ -197,17 +185,9 @@
                 this.dragging = false;
                 ev.preventDefault();
                 var data = ev.dataTransfer.getData("text");
-                // var node = document.createElement("img");
-                // node.src = data;
-                // console.log("SCav");
-                // ev.target.appendChild(node);
-                
-                // ev.target.appendChild(ng.core.ViewChild(data));
                 if(this.game.map.length == 0){
-                    // this.game.map.push(node);
                     this.playMap(data);
                 }
-                // console.log("node"+this.cards.indexOf(data));
                 ev.dataTransfer.clearData();
             }
             
@@ -259,6 +239,7 @@
         this.SDeck = [];
         this.map = [];
         this.points = [0,0,0,0,0,0];
+        this.turn = 0;
         // this.zones = [this.FDeck,this.FDiscards,this.FHand,this.FRanged,this.FCav,this.FMelee,
         //               this.SMelee, this.SCav,this.SRanged,this.SHand,this.SDiscards,this.SDeck];
     }
