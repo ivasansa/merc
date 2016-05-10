@@ -50,6 +50,7 @@
                         this.game.SHand.splice(i, 1);
                     }
                 }
+                this.game.turn = false;
             },
             
             playCard: function (card, box) {
@@ -137,6 +138,7 @@
                         this.game.SHand.splice(i, 1);
                     }
                 }
+                this.game.turn = false;
             },
             
             handleDragEnter: function (ev) {
@@ -189,6 +191,15 @@
                     this.playMap(data);
                 }
                 ev.dataTransfer.clearData();
+            },
+            
+            pass: function (ev) {
+                if(this.game.turn == false){
+                    this.game.turn = true;
+                }else if(this.game.turn == true){
+                    this.game.turn = false;
+                }
+                console.log(this.game.turn);
             }
             
         });
@@ -239,8 +250,10 @@
         this.SDeck = [];
         this.map = [];
         this.points = [0,0,0,0,0,0];
-        this.turn = 0;
-        // this.zones = [this.FDeck,this.FDiscards,this.FHand,this.FRanged,this.FCav,this.FMelee,
-        //               this.SMelee, this.SCav,this.SRanged,this.SHand,this.SDiscards,this.SDeck];
+        this.turn = true; //false Computer
+        this.tendency = 1;
+        
     }
 })(window.app || (window.app = {}));
+
+
