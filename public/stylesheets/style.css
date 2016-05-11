@@ -115,6 +115,11 @@ h1, span {
               top: -6em;
               left: -2em;
               margin-right: -6em; }
+    .container .row .playerPoints h1, .container .row .computerPoints h1 {
+      margin-top: 0px;
+      margin-bottom: 0px;
+      text-align: center;
+      color: white; }
     .container .row .SHand {
       background: #3C3220 !important;
       border-bottom: 1px solid white; }

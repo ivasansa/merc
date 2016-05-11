@@ -80,10 +80,11 @@
                     this.game.points[3] *= rand.meleeBuff;
                     this.game.points[4] *= rand.cavBuff;
                     this.game.points[5] *= rand.rangedBuff;
+                    
                     this.game.SHand.splice(i, 1);
                 }
                 
-                
+                this.game.points[6] = this.game.points[0] + this.game.points[1] + this.game.points[2];
                 this.game.turn = true;
             },
             
@@ -110,6 +111,9 @@
                         this.game.points[3] *= this.game.SHand[i].meleeBuff;
                         this.game.points[4] *= this.game.SHand[i].cavBuff;
                         this.game.points[5] *= this.game.SHand[i].rangedBuff;
+                        
+                        this.game.points[6] = this.game.points[0] + this.game.points[1] + this.game.points[2]; 
+                        this.game.points[7] = this.game.points[3] + this.game.points[4] + this.game.points[5]; 
                         this.game.SHand.splice(i, 1);
                         /**/
                         this.game.turn = false;
@@ -199,6 +203,7 @@
                         }
                         /*Add the points*/
                         this.game.points[box] += (this.game.SHand[i].power*buff);
+                        this.game.points[7] += (this.game.SHand[i].power*buff);
                         /*Remove the card from the hand*/
                         this.game.SHand.splice(i, 1);
                         /**/
@@ -316,7 +321,7 @@
         this.SDiscards = [];
         this.SDeck = [];
         this.map = [];
-        this.points = [0,0,0,0,0,0];
+        this.points = [0,0,0,0,0,0,0,0]; //FR, FC, FM, SM, SC, SR, FTotal, STotal
         this.turn = true; //false Computer
         this.tendency = 1;
         

@@ -11,7 +11,9 @@
             <div class="col-xs-9">
                 <ul><li *ngFor="#card of game.FRanged"><img id="{{card.name}}" src="{{card.src}}"/></li></ul>  
             </div>
-            <div class="col-xs-1"></div>
+            <div class="col-xs-1 computerPoints">
+                <h1>{{game.points[6]}} Pts</h1>
+            </div>
         </div>
         <div class="row">
             <div class="col-xs-2">
@@ -79,16 +81,24 @@
                 <ul><li *ngFor="#card of game.SRanged"><img id="{{card.name}}" src="{{card.src}}"/></li></ul>                
             </div>
             <div class="col-xs-1">
-                <div [class.turn]="!game.turn"> 
-                    <button type="button" (click)="pass($event)" class="btn btn-danger"><i class="fa fa-flag"></i></button>
-                </div>
+                
             </div>
         </div>
         <div class="row">
-            <div class="SHand hidden"></div>
-            <div class="SHand">
+            <div class="col-xs-2">
+                <div class="row playerPoints">
+                    <h1>{{game.FPlayer}}</h1>
+                    <h1>{{game.points[7]}} Pts</h1>
+                </div>
+            </div>
+            <div class="SHand col-xs-9">
                 <ul><li *ngFor="#card of game.SHand"><img id="{{card.name}}" src="{{card.image}}"/></li></ul>
             <!--<img id="drag10" src="images/ElRiperino.png" draggable="true" (drag)="handleDrag($event)">-->
+            </div>
+            <div class="col-xs-1">
+                <div [class.turn]="!game.turn"> 
+                    <button type="button" (click)="pass($event)" class="btn btn-danger"><i class="fa fa-flag"></i></button>
+                </div>
             </div>
         </div>
     </div>
