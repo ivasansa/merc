@@ -92,9 +92,14 @@
                 margin-right: -50%;
                 transform: translate(-50%, -50%);
             }
-            button {
-                height: 100%;
-                width: 100%;
+            div {
+                .turn button {
+                    // background
+                }
+                button {
+                    height: 100%;
+                    width: 100%;
+                }
             }
             .row {
                 border-bottom: none!important;

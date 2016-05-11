@@ -12,19 +12,81 @@
                 
                 this.game = new app.Game("Player1", "Player2", this.cards, this.cards);
                 
-                this.card = new app.Merc('ElRiperino', 'CI', 1, 'melee', 'images/ElRiperino.png');
+                this.card = new app.Merc('ElRiperino', 'CI', 4, 'melee', 'images/ElRiperino.png');
+                this.game.FHand.push(this.card);
                 this.game.SHand.push(this.card);
-                // this.card = new app.Card('ElMartinene', 'CI', 2, 'cav', 'images/prova.png');
-                // this.game.SHand.push(this.card);
-                this.card = new app.Merc('Blackburn', 'CI', 3, 'ranged', 'images/Blackburn.png');
+                
+                this.card = new app.Merc('Blackburn', 'CI', 4, 'ranged', 'images/Blackburn.png');
+                this.game.FHand.push(this.card);
                 this.game.SHand.push(this.card);
+                
+                this.card = new app.Merc('ElMartinenc', 'CI', 6, 'cav', 'images/ElMartinenc.png');
+                this.game.FHand.push(this.card);
+                this.game.SHand.push(this.card);
+                
+            
                 this.card = new app.Map('Ruins', 1, 2, 1, 'images/prova.png');
+                this.game.FHand.push(this.card);
                 this.game.SHand.push(this.card);
                 
                 console.log(this.game.SHand);
                 
                 
             },
+            computerPlay: function () {
+                var node = document.createElement("img");
+                var rand = this.game.FHand[Math.floor(Math.random() * this.game.FHand.length)];
+                var buff = 1;
+                var i = this.game.FHand.indexOf(rand);
+                if(rand.constructor.name == "Merc"){
+                    node.src = rand.image;
+                    if(rand.type == "melee"){
+                        this.game.FMelee.push(node);
+                        if(undefined != this.game.map[0]){
+                            buff *= this.game.map[0].meleeBuff;
+                        }
+                        /*Add the points*/
+                        this.game.points[2] += (rand.power*buff);
+                        /*Remove the card from the hand*/
+                        this.game.FHand.splice(this.game.FHand.indexOf(rand), 1);
+                    }else if(rand.type == "cav"){
+                        this.game.FCav.push(node);
+                        if(undefined != this.game.map[0]){
+                            buff *= this.game.map[0].cavBuff;
+                        }
+                        /*Add the points*/
+                        this.game.points[1] += (rand.power*buff);
+                        /*Remove the card from the hand*/
+                        this.game.FHand.splice(this.game.FHand.indexOf(rand), 1);
+                    }else if(rand.type == "ranged"){
+                        this.game.FRanged.push(node);
+                        if(undefined != this.game.map[0]){
+                            buff *= this.game.map[0].rangedBuff;
+                        }
+                        /*Add the points*/
+                        this.game.points[0] += (rand.power*buff);
+                        /*Remove the card from the hand*/
+                        this.game.FHand.splice(i, 1);
+                    }
+                }else if ((rand.constructor.name == "Map")&&(this.game.map.length == 0)){
+                    node.src = rand.image;
+                    node.rangedBuff = rand.rangedBuff;
+                    node.cavBuff = rand.cavBuff;
+                    node.meleeBuff = rand.meleeBuff;
+                    this.game.map.push(node);
+                    this.game.points[0] *= rand.rangedBuff;
+                    this.game.points[1] *= rand.cavBuff;
+                    this.game.points[2] *= rand.meleeBuff;
+                    this.game.points[3] *= rand.meleeBuff;
+                    this.game.points[4] *= rand.cavBuff;
+                    this.game.points[5] *= rand.rangedBuff;
+                    this.game.SHand.splice(i, 1);
+                }
+                
+                
+                this.game.turn = true;
+            },
+            
             playMap: function (card) {
                 var node = document.createElement("img");
                 node.src = card;
@@ -36,7 +98,8 @@
                     img = this.game.SHand[i].image.length;
                     
                     res = card.slice(-img);
-                    if((res == this.game.SHand[i].image)&&(this.game.SHand[i].constructor.name == "Map")){
+                    if((res == this.game.SHand[i].image)&&
+                        (this.game.SHand[i].constructor.name == "Map")&&(this.game.turn)){
                         node.rangedBuff = this.game.SHand[i].rangedBuff;
                         node.cavBuff = this.game.SHand[i].cavBuff;
                         node.meleeBuff = this.game.SHand[i].meleeBuff;
@@ -48,9 +111,11 @@
                         this.game.points[4] *= this.game.SHand[i].cavBuff;
                         this.game.points[5] *= this.game.SHand[i].rangedBuff;
                         this.game.SHand.splice(i, 1);
+                        /**/
+                        this.game.turn = false;
+                        this.computerPlay();
                     }
                 }
-                this.game.turn = false;
             },
             
             playCard: function (card, box) {
@@ -66,7 +131,7 @@
                 var cardTypeS = -1;
                 
             
-                /*Loop over the player's hand to check what card ha had just played*/
+                /*Loop over the player's hand to check what card he had just played*/
                 for(var i = 0; i < this.game.SHand.length; ++i){
                     img = this.game.SHand[i].image.length;
                     res = card.slice(-img);
@@ -87,7 +152,7 @@
                     }
                     /*If it is the card he just played and it's the right place...*/
                     if((res == this.game.SHand[i].image)&&((box == cardTypeF)||(box == cardTypeS))&&
-                        ((this.game.SHand[i].constructor.name == "Merc"))){
+                        ((this.game.SHand[i].constructor.name == "Merc"))&&(this.game.turn)){
                         /*...Place it on the zone*/
                         switch(box) {
                             case 0:
@@ -136,9 +201,11 @@
                         this.game.points[box] += (this.game.SHand[i].power*buff);
                         /*Remove the card from the hand*/
                         this.game.SHand.splice(i, 1);
+                        /**/
+                        this.game.turn = false;
+                        this.computerPlay();
                     }
                 }
-                this.game.turn = false;
             },
             
             handleDragEnter: function (ev) {

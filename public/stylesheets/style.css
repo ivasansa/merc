@@ -76,7 +76,7 @@ h1, span {
         left: 50%;
         margin-right: -50%;
         transform: translate(-50%, -50%); }
-      .container .row div:nth-of-type(3) button {
+      .container .row div:nth-of-type(3) div button {
         height: 100%;
         width: 100%; }
       .container .row div:nth-of-type(3) .row {
