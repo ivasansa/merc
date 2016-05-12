@@ -24,7 +24,26 @@
                 this.game.FHand.push(this.card);
                 this.game.SHand.push(this.card);
                 
-            
+                this.card = new app.Merc('Asediado', 'CI', 10, 'melee', 'images/Asediado.png');
+                this.game.FHand.push(this.card);
+                this.game.SHand.push(this.card);
+                
+                this.card = new app.Merc('Blas de Lezo', 'CI', 7, 'melee', 'images/BlasdeLezo.png');
+                this.game.FHand.push(this.card);
+                this.game.SHand.push(this.card);
+                
+                this.card = new app.Merc('Dume', 'CI', 9, 'cav', 'images/Dume.png');
+                this.game.FHand.push(this.card);
+                this.game.SHand.push(this.card);
+                
+                this.card = new app.Merc('Sento', 'CI', 6, 'cav', 'images/Sento.png');
+                this.game.FHand.push(this.card);
+                this.game.SHand.push(this.card);
+                
+                this.card = new app.Merc('Toni Pepperoni', 'CI', 5, 'melee', 'images/ToniPepperoni.png');
+                this.game.FHand.push(this.card);
+                this.game.SHand.push(this.card);
+                
                 this.card = new app.Map('Ruins', 1, 2, 1, 'images/prova.png');
                 this.game.FHand.push(this.card);
                 this.game.SHand.push(this.card);
@@ -36,6 +55,7 @@
             computerPlay: function () {
                 var node = document.createElement("img");
                 var rand = this.game.FHand[Math.floor(Math.random() * this.game.FHand.length)];
+                console.log(rand.image);
                 var buff = 1;
                 var i = this.game.FHand.indexOf(rand);
                 if(rand.constructor.name == "Merc"){
@@ -81,10 +101,17 @@
                     this.game.points[4] *= rand.cavBuff;
                     this.game.points[5] *= rand.rangedBuff;
                     
-                    this.game.SHand.splice(i, 1);
+                    this.game.FHand.splice(i, 1);
                 }
                 
                 this.game.points[6] = this.game.points[0] + this.game.points[1] + this.game.points[2];
+                
+                if(this.game.points[6]>this.game.points[7]){
+                    this.game.FPassed = true;
+                    this.SPass();
+                }
+                
+                
                 this.game.turn = true;
             },
             
@@ -265,11 +292,74 @@
                 ev.dataTransfer.clearData();
             },
             
-            pass: function (ev) {
-                if(this.game.turn == false){
-                    this.game.turn = true;
-                }else if(this.game.turn == true){
+            clearTable: function (winner) {
+                this.game.FDiscards = this.game.FDiscards.concat(this.game.FRanged,this.game.FCav,this.game.FMelee);
+                this.game.FRanged = [];
+                this.game.FCav = [];
+                this.game.FMelee = [];
+                
+                this.game.SDiscards = this.game.SDiscards.concat(this.game.SRanged,this.game.SCav,this.game.SMelee);
+                this.game.SRanged = [];
+                this.game.SCav = [];
+                this.game.SMelee = [];
+                
+                this.game.map = [];
+                this.game.points = [0,0,0,0,0,0,0,0]; //FR, FC, FM, SM, SC, SR, FTotal, STotal
+                this.game.turn = winner; //false Computer
+                this.game.FPassed = false;
+                this.game.SPassed = false;
+            },
+            SPass: function (ev) {
+                if(this.game.FPassed){ //Both have Passed
+                    if(this.game.points[6]>this.game.points[7]){//FPlayer won
+                        if(!this.game.SLost[0]){
+                            this.game.SLost[0] = true;
+                            this.clearTable(false);
+                        }else if(!this.game.SLost[1]){
+                            this.game.SLost[1] = true;
+                            //game finished, FPlayer won
+                            console.log("game finished, FPlayer won");
+                        }
+                    }else if(this.game.points[6]<this.game.points[7]){ //SPlayer won
+                        if(!this.game.FLost[0]){
+                            this.game.FLost[0] = true;
+                            this.clearTable(true);
+                        }else if(!this.game.FLost[1]){
+                            this.game.FLost[1] = true;
+                            //game finished, SPlayer won
+                            console.log("game finished, SPlayer won");
+                        }
+                    }else{ //Draw
+                        if(!this.game.SLost[0]){
+                            this.game.SLost[0] = true;
+                        }else if(!this.game.SLost[1]){
+                            this.game.SLost[1] = true;
+                        }
+                        
+                        if(!this.game.FLost[0]){
+                            this.game.FLost[0] = true;
+                        }else if(!this.game.FLost[1]){
+                            this.game.FLost[1] = true;
+                        }
+                        
+                        var options = [true, false],
+                        winner = Math.floor(Math.random() * options.length + 1);
+                        this.clearTable(winner);
+                        if(this.game.SLost[1] && this.game.FLost[1]){
+                            //Game draw   
+                            console.log("game finished, Draw");
+                        }else if(this.game.SLost[1]){
+                            //FPlayer wins
+                            console.log("game finished, FPlayer won");
+                        }else if(this.game.FLost[1]){
+                            //SPlayer wins
+                            console.log("game finished, FPlayer won");
+                        }
+                    }
+                }else {
+                    this.game.SPassed = true;
                     this.game.turn = false;
+                    this.computerPlay();
                 }
                 console.log(this.game.turn);
             }
@@ -324,6 +414,10 @@
         this.points = [0,0,0,0,0,0,0,0]; //FR, FC, FM, SM, SC, SR, FTotal, STotal
         this.turn = true; //false Computer
         this.tendency = 1;
+        this.FPassed = false;
+        this.SPassed = false;
+        this.FLost = [false, false];
+        this.SLost = [false, false];
         
     }
 })(window.app || (window.app = {}));
