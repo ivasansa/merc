@@ -29,19 +29,19 @@
                 this.game.SHand.push(this.card);
                 
                 this.card = new app.Merc('Blas de Lezo', 'CI', 7, 'melee', 'images/BlasdeLezo.png');
-                this.game.FHand.push(this.card);
+                // this.game.FHand.push(this.card);
                 this.game.SHand.push(this.card);
                 
                 this.card = new app.Merc('Dume', 'CI', 9, 'cav', 'images/Dume.png');
-                this.game.FHand.push(this.card);
+                // this.game.FHand.push(this.card);
                 this.game.SHand.push(this.card);
                 
                 this.card = new app.Merc('Sento', 'CI', 6, 'cav', 'images/Sento.png');
-                this.game.FHand.push(this.card);
+                // this.game.FHand.push(this.card);
                 this.game.SHand.push(this.card);
                 
                 this.card = new app.Merc('Toni Pepperoni', 'CI', 5, 'melee', 'images/ToniPepperoni.png');
-                this.game.FHand.push(this.card);
+                // this.game.FHand.push(this.card);
                 this.game.SHand.push(this.card);
                 
                 this.card = new app.Map('Ruins', 1, 2, 1, 'images/prova.png');
@@ -52,67 +52,82 @@
                 
                 
             },
+            
             computerPlay: function () {
-                var node = document.createElement("img");
-                var rand = this.game.FHand[Math.floor(Math.random() * this.game.FHand.length)];
-                console.log(rand.image);
-                var buff = 1;
-                var i = this.game.FHand.indexOf(rand);
-                if(rand.constructor.name == "Merc"){
-                    node.src = rand.image;
-                    if(rand.type == "melee"){
-                        this.game.FMelee.push(node);
-                        if(undefined != this.game.map[0]){
-                            buff *= this.game.map[0].meleeBuff;
+                if(!this.game.FPassed){
+                    var node = document.createElement("img");
+                    var rand = this.game.FHand[Math.floor(Math.random() * this.game.FHand.length)];
+                    var buff = 1;
+                    var i = this.game.FHand.indexOf(rand);
+                    if(rand.constructor.name == "Merc"){
+                        node.src = rand.image;
+                        if(rand.type == "melee"){
+                            this.game.FMelee.push(node);
+                            if(undefined != this.game.map[0]){
+                                buff *= this.game.map[0].meleeBuff;
+                            }
+                            /*Add the points*/
+                            this.game.points[2] += (rand.power*buff);
+                            /*Remove the card from the hand*/
+                            this.game.FHand.splice(i, 1);
+                        }else if(rand.type == "cav"){
+                            this.game.FCav.push(node);
+                            if(undefined != this.game.map[0]){
+                                buff *= this.game.map[0].cavBuff;
+                            }
+                            /*Add the points*/
+                            this.game.points[1] += (rand.power*buff);
+                            /*Remove the card from the hand*/
+                            this.game.FHand.splice(i, 1);
+                        }else if(rand.type == "ranged"){
+                            this.game.FRanged.push(node);
+                            if(undefined != this.game.map[0]){
+                                buff *= this.game.map[0].rangedBuff;
+                            }
+                            /*Add the points*/
+                            this.game.points[0] += (rand.power*buff);
+                            /*Remove the card from the hand*/
+                            this.game.FHand.splice(i, 1);
                         }
-                        /*Add the points*/
-                        this.game.points[2] += (rand.power*buff);
-                        /*Remove the card from the hand*/
-                        this.game.FHand.splice(this.game.FHand.indexOf(rand), 1);
-                    }else if(rand.type == "cav"){
-                        this.game.FCav.push(node);
-                        if(undefined != this.game.map[0]){
-                            buff *= this.game.map[0].cavBuff;
-                        }
-                        /*Add the points*/
-                        this.game.points[1] += (rand.power*buff);
-                        /*Remove the card from the hand*/
-                        this.game.FHand.splice(this.game.FHand.indexOf(rand), 1);
-                    }else if(rand.type == "ranged"){
-                        this.game.FRanged.push(node);
-                        if(undefined != this.game.map[0]){
-                            buff *= this.game.map[0].rangedBuff;
-                        }
-                        /*Add the points*/
-                        this.game.points[0] += (rand.power*buff);
-                        /*Remove the card from the hand*/
+                    }else if ((rand.constructor.name == "Map")&&(this.game.map.length == 0)){
+                        node.src = rand.image;
+                        node.rangedBuff = rand.rangedBuff;
+                        node.cavBuff = rand.cavBuff;
+                        node.meleeBuff = rand.meleeBuff;
+                        this.game.map.push(node);
+                        this.game.points[0] *= rand.rangedBuff;
+                        this.game.points[1] *= rand.cavBuff;
+                        this.game.points[2] *= rand.meleeBuff;
+                        this.game.points[3] *= rand.meleeBuff;
+                        this.game.points[4] *= rand.cavBuff;
+                        this.game.points[5] *= rand.rangedBuff;
+                        
                         this.game.FHand.splice(i, 1);
+                        
                     }
-                }else if ((rand.constructor.name == "Map")&&(this.game.map.length == 0)){
-                    node.src = rand.image;
-                    node.rangedBuff = rand.rangedBuff;
-                    node.cavBuff = rand.cavBuff;
-                    node.meleeBuff = rand.meleeBuff;
-                    this.game.map.push(node);
-                    this.game.points[0] *= rand.rangedBuff;
-                    this.game.points[1] *= rand.cavBuff;
-                    this.game.points[2] *= rand.meleeBuff;
-                    this.game.points[3] *= rand.meleeBuff;
-                    this.game.points[4] *= rand.cavBuff;
-                    this.game.points[5] *= rand.rangedBuff;
+                    if(this.game.FHand.length <= 0){
+                        this.game.FPassed = true;
+                        this.FPass();
+                    }
                     
-                    this.game.FHand.splice(i, 1);
+                    this.game.points[6] = this.game.points[0] + this.game.points[1] + this.game.points[2];
+                    
+                    if((this.game.points[6]>this.game.points[7])&&(this.game.SPassed)){
+                        this.game.FPassed = true;
+                        this.FPass();
+                    }else if((this.game.points[7]-this.game.points[6] <= 5)&&(this.game.SPassed)){
+                        this.computerPlay();
+                    }else if((this.game.points[7]-this.game.points[6] > 5)&&(this.game.SPassed)){
+                        this.game.FPassed = true;
+                        this.FPass();
+                    }
+                    
+                    
+                    this.game.turn = true;
                 }
-                
-                this.game.points[6] = this.game.points[0] + this.game.points[1] + this.game.points[2];
-                
-                if(this.game.points[6]>this.game.points[7]){
-                    this.game.FPassed = true;
-                    this.SPass();
+                else {
+                    this.game.turn = true;
                 }
-                
-                
-                this.game.turn = true;
             },
             
             playMap: function (card) {
@@ -142,6 +157,11 @@
                         this.game.points[6] = this.game.points[0] + this.game.points[1] + this.game.points[2]; 
                         this.game.points[7] = this.game.points[3] + this.game.points[4] + this.game.points[5]; 
                         this.game.SHand.splice(i, 1);
+                        
+                        if(this.game.SHand.length <= 0){
+                            this.game.SPassed = true;
+                            this.SPass();
+                        }
                         /**/
                         this.game.turn = false;
                         this.computerPlay();
@@ -182,8 +202,7 @@
                             break;
                     }
                     /*If it is the card he just played and it's the right place...*/
-                    if((res == this.game.SHand[i].image)&&((box == cardTypeF)||(box == cardTypeS))&&
-                        ((this.game.SHand[i].constructor.name == "Merc"))&&(this.game.turn)){
+                    if((res == this.game.SHand[i].image)&&((box == cardTypeF)||(box == cardTypeS))&&((this.game.SHand[i].constructor.name == "Merc"))&&(this.game.turn)){
                         /*...Place it on the zone*/
                         switch(box) {
                             case 0:
@@ -233,6 +252,12 @@
                         this.game.points[7] += (this.game.SHand[i].power*buff);
                         /*Remove the card from the hand*/
                         this.game.SHand.splice(i, 1);
+                        
+                        if(this.game.SHand.length <= 0){
+                            this.game.SPassed = true;
+                            this.SPass();
+                        }                
+                                
                         /**/
                         this.game.turn = false;
                         this.computerPlay();
@@ -308,8 +333,21 @@
                 this.game.turn = winner; //false Computer
                 this.game.FPassed = false;
                 this.game.SPassed = false;
+                
+                if(this.game.SHand.length == 0 || this.game.FHand.length == 0){
+                    if(this.game.SHand.length == 0){ 
+                        this.game.SPassed = true;
+                        this.SPass();
+                    }
+                    if(this.game.FHand.length == 0){
+                        this.game.FPassed = true;
+                        this.FPass();   
+                    }
+                }
             },
-            SPass: function (ev) {
+            
+            SPass: function () {
+                this.game.SPassed = true;
                 if(this.game.FPassed){ //Both have Passed
                     if(this.game.points[6]>this.game.points[7]){//FPlayer won
                         if(!this.game.SLost[0]){
@@ -357,9 +395,62 @@
                         }
                     }
                 }else {
-                    this.game.SPassed = true;
                     this.game.turn = false;
                     this.computerPlay();
+                }
+                console.log(this.game.turn);
+            },
+            
+            FPass: function () {
+                this.game.FPassed = true;
+                if(this.game.SPassed){ //Both have Passed
+                    if(this.game.points[6]>this.game.points[7]){//FPlayer won
+                        if(!this.game.SLost[0]){
+                            this.game.SLost[0] = true;
+                            this.clearTable(false);
+                        }else if(!this.game.SLost[1]){
+                            this.game.SLost[1] = true;
+                            //game finished, FPlayer won
+                            console.log("game finished, FPlayer won");
+                        }
+                    }else if(this.game.points[6]<this.game.points[7]){ //SPlayer won
+                        if(!this.game.FLost[0]){
+                            this.game.FLost[0] = true;
+                            this.clearTable(true);
+                        }else if(!this.game.FLost[1]){
+                            this.game.FLost[1] = true;
+                            //game finished, SPlayer won
+                            console.log("game finished, SPlayer won");
+                        }
+                    }else{ //Draw
+                        if(!this.game.SLost[0]){
+                            this.game.SLost[0] = true;
+                        }else if(!this.game.SLost[1]){
+                            this.game.SLost[1] = true;
+                        }
+                        
+                        if(!this.game.FLost[0]){
+                            this.game.FLost[0] = true;
+                        }else if(!this.game.FLost[1]){
+                            this.game.FLost[1] = true;
+                        }
+                        
+                        var options = [true, false],
+                        winner = Math.floor(Math.random() * options.length + 1);
+                        this.clearTable(winner);
+                        if(this.game.SLost[1] && this.game.FLost[1]){
+                            //Game draw   
+                            console.log("game finished, Draw");
+                        }else if(this.game.SLost[1]){
+                            //FPlayer wins
+                            console.log("game finished, FPlayer won");
+                        }else if(this.game.FLost[1]){
+                            //SPlayer wins
+                            console.log("game finished, FPlayer won");
+                        }
+                    }
+                }else {
+                    this.game.turn = true;
                 }
                 console.log(this.game.turn);
             }

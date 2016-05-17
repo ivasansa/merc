@@ -40,8 +40,9 @@
                 <ul><li *ngFor="#card of game.FMelee"><img id="{{card.name}}" src="{{card.src}}"/></li></ul>  
             </div>
             <div class="col-xs-1" (drop)="handleDropMap($event)" (dragenter)="handleDragEnter($event)" (dragleave)="handleDragLeave($event)" ondragover="return false">
-                <h1>Map</h1>
-                <h1><i class="fa fa-map-o"></i></h1>
+                <!--<h1>Map</h1>-->
+                <!--<h1><i class="fa fa-map-o"></i></h1>-->
+                <h1 [class.hidden]="!game.FPassed">passed</h1>
             </div>
         </div>
         <div class="row" >
@@ -70,7 +71,15 @@
                 <ul><li *ngFor="#card of game.SCav"><img id="{{card.name}}" src="{{card.src}}"/></li></ul>
             </div>
             
-            <div class="col-xs-1"></div>
+            <div class="col-xs-1 lives">
+                <div class="col-xs-6">
+                        <i  [class.lost]="game.FLost[0]" class='fa fa-certificate'></i>
+                    </div>
+                    <div class="col-xs-6">
+                        <i  [class.lost]="game.FLost[1]" class="fa fa-certificate"></i>
+                    </div>
+                
+            </div>
         </div>
         <div class="row" >
             <div class="col-xs-2">
