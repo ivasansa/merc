@@ -39,7 +39,6 @@
     "mongodb": "^2.1.11",
     "mongoose": "^4.4.9",
     "morgan": "^1.6.0",
-    "ng2-bs3-modal": "^0.6.1",
     "passport": "^0.2.2",
     "rxjs": "^5.0.0-beta.6",
     "socket.io": "^1.4.5",
