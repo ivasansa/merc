@@ -356,7 +356,9 @@
                         }else if(!this.game.SLost[1]){
                             this.game.SLost[1] = true;
                             //game finished, FPlayer won
-                            console.log("game finished, FPlayer won");
+                            alert("game finished, the computer won");
+                            window.location.reload();
+                            // window.location.href = 'https://merc-lvasansa-3.c9users.io/';
                         }
                     }else if(this.game.points[6]<this.game.points[7]){ //SPlayer won
                         if(!this.game.FLost[0]){
@@ -365,7 +367,8 @@
                         }else if(!this.game.FLost[1]){
                             this.game.FLost[1] = true;
                             //game finished, SPlayer won
-                            console.log("game finished, SPlayer won");
+                            alert("game finished, you won");
+                             window.location.reload();
                         }
                     }else{ //Draw
                         if(!this.game.SLost[0]){
@@ -385,13 +388,16 @@
                         this.clearTable(winner);
                         if(this.game.SLost[1] && this.game.FLost[1]){
                             //Game draw   
-                            console.log("game finished, Draw");
+                            alert("game finished, Draw");
+                             window.location.reload();
                         }else if(this.game.SLost[1]){
                             //FPlayer wins
-                            console.log("game finished, FPlayer won");
+                            alert("game finished, you won");
+                             window.location.reload();
                         }else if(this.game.FLost[1]){
                             //SPlayer wins
-                            console.log("game finished, FPlayer won");
+                            alert("game finished, the computer won");
+                            window.location.reload();
                         }
                     }
                 }else {
@@ -411,7 +417,8 @@
                         }else if(!this.game.SLost[1]){
                             this.game.SLost[1] = true;
                             //game finished, FPlayer won
-                            console.log("game finished, FPlayer won");
+                            alert("game finished, the computer won");
+                            window.location.reload();
                         }
                     }else if(this.game.points[6]<this.game.points[7]){ //SPlayer won
                         if(!this.game.FLost[0]){
@@ -420,7 +427,8 @@
                         }else if(!this.game.FLost[1]){
                             this.game.FLost[1] = true;
                             //game finished, SPlayer won
-                            console.log("game finished, SPlayer won");
+                            alert("game finished, you won");
+                             window.location.reload();
                         }
                     }else{ //Draw
                         if(!this.game.SLost[0]){
@@ -440,13 +448,16 @@
                         this.clearTable(winner);
                         if(this.game.SLost[1] && this.game.FLost[1]){
                             //Game draw   
-                            console.log("game finished, Draw");
+                            alert("game finished, Draw");
+                             window.location.reload();
                         }else if(this.game.SLost[1]){
                             //FPlayer wins
-                            console.log("game finished, FPlayer won");
+                            alert("game finished, the computer won");
+                             window.location.reload();
                         }else if(this.game.FLost[1]){
                             //SPlayer wins
-                            console.log("game finished, FPlayer won");
+                            alert("game finished, the computer won");
+                             window.location.reload();
                         }
                     }
                 }else {
