@@ -457,7 +457,7 @@
                         }else if(this.game.FLost[1]){
                             //SPlayer wins
                             alert("game finished, the computer won");
-                             window.location.reload();
+                             window.location.reload(); 
                         }
                     }
                 }else {
