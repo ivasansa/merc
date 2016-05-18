@@ -2,13 +2,13 @@
     <!--<li *ngFor="#card of cards"><img src="{{card.image}}"/></li>-->
     <div class="container">
         <div class="row">
-            <div class="col-xs-2">
+            <div class="col-xs-1">
                 <div class="row">
                     <div class="col-xs-6"><i class="fa fa-bullseye"></i></div>
                     <div class="col-xs-6"><span>{{game.points[0]}}</span></div>
                 </div>
             </div>
-            <div class="col-xs-9">
+            <div class="col-xs-10">
                 <ul><li *ngFor="#card of game.FRanged"><img id="{{card.name}}" src="{{card.src}}"/></li></ul>  
             </div>
             <div class="col-xs-1 computerPoints">
@@ -16,13 +16,13 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-2">
+            <div class="col-xs-1">
                 <div class="row">
                     <div class="col-xs-6"><i class="glyphicon glyphicon-knight"></i></div>
                     <div class="col-xs-6"><span>{{game.points[1]}}</span></div>
                 </div>
             </div>
-            <div class="col-xs-9">
+            <div class="col-xs-10">
                 <ul><li *ngFor="#card of game.FCav"><img id="{{card.name}}" src="{{card.src}}"/></li></ul>  
             </div>
             <div class="col-xs-1 computerHandCount">
@@ -30,86 +30,112 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-2">
+            <div class="col-xs-1">
                 <div class="row">
                     <div class="col-xs-6"><i class="fa fa-shield"></i></div>
                     <div class="col-xs-6"><span>{{game.points[2]}}</span></div>
                 </div>
             </div>
-            <div class="col-xs-9">
+            <div class="col-xs-10">
                 <ul><li *ngFor="#card of game.FMelee"><img id="{{card.name}}" src="{{card.src}}"/></li></ul>  
             </div>
-            <div class="col-xs-1" (drop)="handleDropMap($event)" (dragenter)="handleDragEnter($event)" (dragleave)="handleDragLeave($event)" ondragover="return false">
-                <!--<h1>Map</h1>-->
-                <!--<h1><i class="fa fa-map-o"></i></h1>-->
-                <h1 [class.hidden]="!game.FPassed">passed</h1>
-            </div>
-        </div>
-        <div class="row" >
-            <div class="col-xs-2">
-                <div class="row">
-                    <div class="col-xs-6"><i class="fa fa-shield"></i></div>
-                    <div class="col-xs-6"><span>{{game.points[3]}}</span></div>
-                </div>
-            </div>
-            <div class="col-xs-9" (drop)="handleDropSMelee($event)" (dragenter)="handleDragEnter($event)" (dragleave)="handleDragLeave($event)" ondragover="return false">
-                <ul><li *ngFor="#card of game.SMelee"><img id="{{card.name}}" src="{{card.src}}"/></li></ul>                
-            </div>
-            
-            <div class="col-xs-1" (drop)="handleDropMap($event)" (dragenter)="handleDragEnter($event)" (dragleave)="handleDragLeave($event)" ondragover="return false">
-                <ul><li *ngFor="#card of game.map"><img id="{{card.name}}" src="{{card.src}}"/></li></ul>
-            </div>
-        </div>
-        <div class="row" >
-            <div class="col-xs-2">
-                <div class="row">
-                    <div class="col-xs-6"><i class="glyphicon glyphicon-knight"></i></div>
-                    <div class="col-xs-6"><span>{{game.points[4]}}</span></div>
-                </div>
-            </div>
-            <div class="col-xs-9" (drop)="handleDropSCav($event)" (dragenter)="handleDragEnter($event)" (dragleave)="handleDragLeave($event)" ondragover="return false">
-                <ul><li *ngFor="#card of game.SCav"><img id="{{card.name}}" src="{{card.src}}"/></li></ul>
-            </div>
-            
             <div class="col-xs-1 lives">
-                <div class="col-xs-6">
+                <div class="row">
+                    <h1 [class.hidden]="game.turn">You play</h1>
+                    <h1 [class.hidden]="!game.FPassed">passed</h1>
+                </div>
+                <div class="row">
+                    <div class="col-xs-6">
                         <i  [class.lost]="game.FLost[0]" class='fa fa-certificate'></i>
                     </div>
                     <div class="col-xs-6">
                         <i  [class.lost]="game.FLost[1]" class="fa fa-certificate"></i>
                     </div>
-                
+                </div>
             </div>
         </div>
         <div class="row" >
-            <div class="col-xs-2">
+            <div class="col-xs-1">
+                <div class="row">
+                    <div class="col-xs-6"><i class="fa fa-shield"></i></div>
+                    <div class="col-xs-6"><span>{{game.points[3]}}</span></div>
+                </div>
+            </div>
+            <div class="col-xs-10" (drop)="handleDropSMelee($event)" (dragenter)="handleDragEnter($event)" (dragleave)="handleDragLeave($event)" ondragover="return false">
+                <ul><li *ngFor="#card of game.SMelee"><img id="{{card.name}}" src="{{card.src}}"/></li></ul>                
+            </div>
+            
+            <div class="col-xs-1" (drop)="handleDropMap($event)" (dragenter)="handleDragEnter($event)" (dragleave)="handleDragLeave($event)" ondragover="return false">
+                <div class="map">
+                    <h1>Map</h1>
+                    <h1><i class="fa fa-map-o"></i></h1>
+                </div>
+                <ul><li *ngFor="#card of game.map"><img id="{{card.name}}" src="{{card.src}}"/></li></ul>
+            </div>
+        </div>
+        <div class="row" >
+            <div class="col-xs-1">
+                <div class="row">
+                    <div class="col-xs-6"><i class="glyphicon glyphicon-knight"></i></div>
+                    <div class="col-xs-6"><span>{{game.points[4]}}</span></div>
+                </div>
+            </div>
+            <div class="col-xs-10" (drop)="handleDropSCav($event)" (dragenter)="handleDragEnter($event)" (dragleave)="handleDragLeave($event)" ondragover="return false">
+                <ul><li *ngFor="#card of game.SCav"><img id="{{card.name}}" src="{{card.src}}"/></li></ul>
+            </div>
+            
+            <div class="col-xs-1 lives">
+                <!--<div class="row">-->
+                <!--    <div class="col-xs-6">-->
+                <!--        <i  [class.lost]="game.FLost[0]" class='fa fa-certificate'></i>-->
+                <!--    </div>-->
+                <!--    <div class="col-xs-6">-->
+                <!--        <i  [class.lost]="game.FLost[1]" class="fa fa-certificate"></i>-->
+                <!--    </div>-->
+                <!--</div>-->
+                <!--<div class="row">-->
+                <!--    <div class="col-xs-6">-->
+                <!--        <i  [class.lost]="game.FLost[0]" class='fa fa-certificate'></i>-->
+                <!--    </div>-->
+                <!--    <div class="col-xs-6">-->
+                <!--        <i  [class.lost]="game.FLost[1]" class="fa fa-certificate"></i>-->
+                <!--    </div>-->
+                <!--</div>-->
+            </div>
+        </div>
+        <div class="row" >
+            <div class="col-xs-1">
                 <div class="row">
                     <div class="col-xs-6"><i class="fa fa-bullseye"></i></div>
                     <div class="col-xs-6"><span>{{game.points[5]}}</span></div>
                 </div>
             </div>
-            <div class="col-xs-9" (drop)="handleDropSRanged($event)" (dragenter)="handleDragEnter($event)" (dragleave)="handleDragLeave($event)" ondragover="return false">
+            <div class="col-xs-10" (drop)="handleDropSRanged($event)" (dragenter)="handleDragEnter($event)" (dragleave)="handleDragLeave($event)" ondragover="return false">
                 <ul><li *ngFor="#card of game.SRanged"><img id="{{card.name}}" src="{{card.src}}"/></li></ul>                
             </div>
             <div class="col-xs-1 lives">
-                <!--<div class="row">-->
+                <div class="row">
                     <div class="col-xs-6">
                         <i  [class.lost]="game.SLost[0]" class='fa fa-certificate'></i>
                     </div>
                     <div class="col-xs-6">
                         <i  [class.lost]="game.SLost[1]" class="fa fa-certificate"></i>
                     </div>
-                <!--</div>-->
+                </div>
+                <div class="row">
+                    <h1 [class.hidden]="!game.turn">You play</h1>
+                    <h1 [class.hidden]="!game.SPassed">passed</h1>
+                </div>
             </div>
         </div>
         <div class="row">
-            <div class="col-xs-2">
+            <div class="col-xs-1">
                 <div class="row playerPoints">
-                    <h1>{{game.FPlayer}}</h1>
+                    <!--<h1>{{game.FPlayer}}</h1>-->
                     <h1>{{game.points[7]}} Pts</h1>
                 </div>
             </div>
-            <div class="SHand col-xs-9">
+            <div class="SHand col-xs-10">
                 <ul><li *ngFor="#card of game.SHand"><img id="{{card.name}}" src="{{card.image}}"/></li></ul>
             <!--<img id="drag10" src="images/ElRiperino.png" draggable="true" (drag)="handleDrag($event)">-->
             </div>

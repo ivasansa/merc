@@ -1,9 +1,11 @@
+import { MODAL_DIRECTIVES } from 'ng2-bs3-modal';
+
 (function (app) {
-    app.AI =
+    app.Modal =
         ng.core.Component({
-            selector: 'joc',
-            templateUrl: "app/joc.html",
-            directives: [app.AppComponent]
+            selector: 'modal',
+            templateUrl: "app/modal.html",
+            directives: [MODAL_DIRECTIVES]
         })
             .Class({
             constructor: function () {
