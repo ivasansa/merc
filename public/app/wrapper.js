@@ -1,16 +1,16 @@
-import { MODAL_DIRECTIVES } from 'ng2-bs3-modal';
-
 (function (app) {
-    app.Modal =
+    app.Wrapper =
         ng.core.Component({
-            selector: 'modal',
-            templateUrl: "app/modal.html",
-            directives: [MODAL_DIRECTIVES]
+            selector: 'wrapper',
+            templateUrl: "app/wrapper.html"
         })
             .Class({
             constructor: function () {
                 this.nom = "Ivan";
                 console.log(this.nom);
+            },
+            hide: function () {
+                this.visible = !this.visible;
             }
         });
 })(window.app || (window.app = {}));

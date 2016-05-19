@@ -14,13 +14,13 @@ router.get('/', function(req, res, next) {
 //     db.close();
 //   })
 // })
-  res.render("index", {title: "ivan"});
+  res.render("layout", {title: "ivan"});
   // res.render("indexc9", {name: "ivan"});
 });
 
-router.get('/c9', function(req, res, next) {
-  res.render("indexc9", {name: "ivan"});
-});
+// router.get('/joc', function(req, res, next) {
+//   res.render("joc");
+// });
 
   
 

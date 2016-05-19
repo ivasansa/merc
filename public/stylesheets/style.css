@@ -12,6 +12,12 @@ h1, span {
   font-family: Mordred, sans-serif !important;
   font-weight: bold !important; }
 
+.visible {
+  visibility: visible; }
+
+.nonVisible {
+  visibility: hidden; }
+
 .container {
   height: 100%;
   width: 100% !important; }
