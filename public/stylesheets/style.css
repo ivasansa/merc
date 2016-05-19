@@ -18,6 +18,28 @@ h1, span {
 .nonVisible {
   visibility: hidden; }
 
+#deckBuilder div:nth-of-type(1) {
+  background: #564932;
+  border-bottom: 1px solid white; }
+  #deckBuilder div:nth-of-type(1) ul {
+    display: flex;
+    list-style: none;
+    margin: 0px !important;
+    height: 100%;
+    padding: 0px; }
+    #deckBuilder div:nth-of-type(1) ul li {
+      height: 100%; }
+      #deckBuilder div:nth-of-type(1) ul li img {
+        position: relative;
+        height: 100%;
+        float: left; }
+        #deckBuilder div:nth-of-type(1) ul li img:hover {
+          height: 15em;
+          z-index: 99;
+          top: -6em;
+          left: -2em;
+          margin-right: -6em; }
+
 .container {
   height: 100%;
   width: 100% !important; }
