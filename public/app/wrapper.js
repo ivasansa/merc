@@ -10,6 +10,7 @@
                 this.dragging = false;
                 
                 this.allCards = [];
+                this.buffer = [];
                 
                 this.card = new app.Merc('ElRiperino', 'CI', 4, 'melee', 'images/ElRiperino.png');
                 this.allCards.push(this.card);
@@ -37,7 +38,7 @@
                 
                 this.card = new app.Map('Ruins', 1, 2, 1, 'images/prova.png');
                 this.allCards.push(this.card);
-                
+                this.buffer = this.allCards.slice();
                 this.deckBuilder = new app.DeckBuilder(this.allCards, []);
                 
             },
@@ -60,7 +61,7 @@
                         this.deckBuilder.points += (this.deckBuilder.allCards[i].power);
                         /*Remove the card from the hand*/
                         this.deckBuilder.allCards.splice(i, 1);
-                        
+                        node.power = this.deckBuilder.allCards[i].power;
                         this.deckBuilder.deck.push(node);  
                     }
                 }
@@ -75,15 +76,26 @@
                 
                 var img = "";
                 
-                console.log(this.deckBuilder.deck);
+                // console.log(this.deckBuilder.deck);
                 /*Loop over the player's hand to check what card he had just played*/
                 for(var i = 0; i < this.deckBuilder.deck.length; ++i){
                     img = this.deckBuilder.deck[i].image.length;
-                    res = card.slice(-img);
+                    res = node.image.slice(-img);      
 
                      if(res == this.deckBuilder.deck[i].image){
+                        console.log(this.deckBuilder.deck[i].image);
+                        console.log(this.buffer);
+                        
+                        for(var j = 0; j < this.buffer.length; ++j){
+                            img = this.buffer[j].image.length;
+                            res = node.image.slice(-img); 
+                            console.log(this.buffer[j].image+"|"+res); 
+                            if(this.buffer[j].image == res){
+                                this.deckBuilder.points -= (this.buffer[j].power);
+                                
+                            }
+                        }
                         /*Add the points*/
-                        this.deckBuilder.points -= (this.deckBuilder.deck[i].power);
                         /*Remove the card from the hand*/
                         this.deckBuilder.deck.splice(i, 1);
                         
@@ -114,6 +126,7 @@
                 this.dragging = false;
                 ev.preventDefault();
                 var data = ev.dataTransfer.getData("text");
+                console.log(data);
                 this.giveCard(data);
                 ev.dataTransfer.clearData();
             },
@@ -153,6 +166,7 @@
   app.DeckBuilder = DeckBuilder;
 
     function DeckBuilder(allCards, deck) {
+        this.allCardsSAVE = allCards;
         this.allCards = allCards;
         this.deck = deck;
         this.points = 0;

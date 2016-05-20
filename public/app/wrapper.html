@@ -3,15 +3,29 @@
         
         <div class="row" >
           <div class="col-xs-6" (drop)="handleDropG($event)" (dragenter)="handleDragEnter($event)" (dragleave)="handleDragLeave($event)" ondragover="return false">
-                <ul><li *ngFor="#card of deckBuilder.allCards"><img id="{{card.name}}" src="{{card.image}}"/></li></ul>
+              <h1>All cards</h1>
+              <div class="row deckHeader" >
+                   <div class="col-xs-12">
+                        {{deckBuilder.points}} 
+                   </div> 
+                </div>
+                <ul class="row"><li *ngFor="#card of deckBuilder.allCards"><img id="{{card.name}}" src="{{card.image}}"/></li></ul>  
             <!--<img id="drag10" src="images/ElRiperino.png" draggable="true" (drag)="handleDrag($event)">-->
             </div>
+        <!--</div>-->
+        <!--<div class="row" >-->
             <div class="col-xs-6" (drop)="handleDrop($event)" (dragenter)="handleDragEnter($event)" (dragleave)="handleDragLeave($event)" ondragover="return false">
-                <ul><li *ngFor="#card of deckBuilder.deck"><img id="{{card.name}}" src="{{card.src}}"/></li></ul>                
+                <h1>Your Deck</h1>
+                <div class="row deckHeader" >
+                   <div class="col-xs-12">
+                        {{deckBuilder.points}} 
+                   </div> 
+                </div>
+                <ul class="row"><li *ngFor="#card of deckBuilder.deck"><img id="{{card.name}}" src="{{card.src}}"/></li></ul>                
             </div>
         </div>
     </div>
-
+    
 
 <button type="button" (click)="hide()" class="btn btn-danger"><i class="fa fa-flag"></i></button>
 <joc [class.nonVisible]="visible"></joc>
