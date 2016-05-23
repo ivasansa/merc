@@ -2,13 +2,15 @@
     app.Wrapper =
         ng.core.Component({
             selector: 'wrapper',
+            pipes: [app.PipePersonalitzada],
             templateUrl: "app/wrapper.html"
         })
             .Class({
             constructor: function () {
                 // this.cards = [];
                 this.dragging = false;
-                
+                this.frase = `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`;
+
                 this.allCards = [];
                 this.buffer = [];
                 
@@ -40,7 +42,7 @@
                 this.allCards.push(this.card);
                 this.buffer = this.allCards.slice();
                 this.deckBuilder = new app.DeckBuilder(this.allCards, []);
-                
+                this.hello = "herro";
             },
             playCard: function (card) {
                 /*Recover the image path of the card and make it a proper image*/
@@ -57,12 +59,23 @@
                     res = card.slice(-img);
 
                      if(res == this.deckBuilder.allCards[i].image){
+                        for(var j = 0; j < this.buffer.length; ++j){
+                            img = this.buffer[j].image.length;
+                            res = node.image.slice(-img); 
+                            console.log(this.buffer[j].image+"|"+res); 
+                            if(this.buffer[j].image == res){
+                                this.deckBuilder.points += (this.buffer[j].power);
+                                this.deckBuilder.allCards.splice(i, 1);
+                                node.power =this.buffer[j].power;
+                                this.deckBuilder.deck.push(node); 
+                            }
+                        }
                         /*Add the points*/
-                        this.deckBuilder.points += (this.deckBuilder.allCards[i].power);
+                        // this.deckBuilder.points += (this.deckBuilder.allCards[i].power);
                         /*Remove the card from the hand*/
-                        this.deckBuilder.allCards.splice(i, 1);
-                        node.power = this.deckBuilder.allCards[i].power;
-                        this.deckBuilder.deck.push(node);  
+                        // this.deckBuilder.allCards.splice(i, 1);
+                        // node.power = this.deckBuilder.allCards[i].power;
+                        // this.deckBuilder.deck.push(node);  
                     }
                 }
                 
@@ -130,12 +143,13 @@
                 this.giveCard(data);
                 ev.dataTransfer.clearData();
             },
-            
             hide: function () {
                 this.visible = !this.visible;
             }
         });
 })(window.app || (window.app = {}));
+
+
 
 (function(app) {
   app.Merc = Merc;

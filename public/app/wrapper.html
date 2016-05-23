@@ -7,7 +7,11 @@
               <div class="row deckHeader" >
                    <div class="col-xs-12">
                         {{deckBuilder.points}} 
-                   </div> 
+                   </div>
+                    
+                    <p>Primeres 4 paraules:{{frase | filter:4 }}</p> 
+                    
+                    <p>Primeres 7 paraules: {{frase | filter:7 }}</p>
                 </div>
                 <ul class="row"><li *ngFor="#card of deckBuilder.allCards"><img id="{{card.name}}" src="{{card.image}}"/></li></ul>  
             <!--<img id="drag10" src="images/ElRiperino.png" draggable="true" (drag)="handleDrag($event)">-->
@@ -28,4 +32,5 @@
     
 
 <button type="button" (click)="hide()" class="btn btn-danger"><i class="fa fa-flag"></i></button>
+<!--<joc [class.hello]="hello" [class.nonVisible]="visible"></joc>-->
 <joc [class.nonVisible]="visible"></joc>

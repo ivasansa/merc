@@ -4,13 +4,13 @@
         ng.core.Component({
             selector: 'joc',
             templateUrl: "app/joc.html",
+            inputs: [ 'hello' ]
         })
             .Class({
             constructor: function () {
                 // this.cards = [];
                 this.dragging = false;
 
-                
                 this.game = new app.Game("Player1", "Player2", this.cards, this.cards);
                 
                 this.card = new app.Merc('ElRiperino', 'CI', 4, 'melee', 'images/ElRiperino.png');
@@ -49,11 +49,13 @@
                 this.game.FHand.push(this.card);
                 this.game.SHand.push(this.card);
                 
-                console.log(this.game.SHand);
+                console.log(this.hello);
                 
                 
             },
-            
+            ngOnInit() {
+                    console.log(this.hello);
+            },
             computerPlay: function () {
                 if(!this.game.FPassed){
                     var node = document.createElement("img");
