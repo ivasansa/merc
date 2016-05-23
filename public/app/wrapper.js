@@ -10,7 +10,7 @@
                 // this.cards = [];
                 this.dragging = false;
                 this.frase = `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`;
-
+                this.sort = false;
                 this.allCards = [];
                 this.buffer = [];
                 
@@ -142,6 +142,9 @@
                 console.log(data);
                 this.giveCard(data);
                 ev.dataTransfer.clearData();
+            },
+            sorterino: function () {
+                this.sort = !this.sort;
             },
             hide: function () {
                 this.visible = !this.visible;
