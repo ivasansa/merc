@@ -45,7 +45,7 @@
                 // this.game.FHand.push(this.card);
                 this.game.SHand.push(this.card);
                 
-                this.card = new app.Map('Ruins', 1, 2, 1, 'images/prova.png');
+                this.card = new app.Map('Ruins', 1, 2, 1, 'images/Ruins.png');
                 this.game.FHand.push(this.card);
                 this.game.SHand.push(this.card);
                 

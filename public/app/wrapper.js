@@ -2,7 +2,7 @@
     app.Wrapper =
         ng.core.Component({
             selector: 'wrapper',
-            pipes: [app.PipePersonalitzada],
+            pipes: [app.PipePersonalitzada, app.MeleePipe, app.CavPipe, app.RangedPipe, app.MapPipe],
             templateUrl: "app/wrapper.html"
         })
             .Class({
@@ -10,7 +10,7 @@
                 // this.cards = [];
                 this.dragging = false;
                 this.frase = `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`;
-                this.sort = false;
+                this.sort = [true,false,false,false];
                 this.allCards = [];
                 this.buffer = [];
                 
@@ -38,9 +38,10 @@
                 this.card = new app.Merc('Toni Pepperoni', 'CI', 5, 'melee', 'images/ToniPepperoni.png');
                 this.allCards.push(this.card);
                 
-                this.card = new app.Map('Ruins', 1, 2, 1, 'images/prova.png');
+                this.card = new app.Map('Ruins', 1, 2, 1, 'images/Ruins.png');
                 this.allCards.push(this.card);
                 this.buffer = this.allCards.slice();
+                // this.allCardsMelee = this.allCards.slice();
                 this.deckBuilder = new app.DeckBuilder(this.allCards, []);
                 this.hello = "herro";
             },
@@ -63,7 +64,7 @@
                             img = this.buffer[j].image.length;
                             res = node.image.slice(-img); 
                             console.log(this.buffer[j].image+"|"+res); 
-                            if(this.buffer[j].image == res){
+                            if(this.buffer[j].image == res && (this.buffer[j].power + this.deckBuilder.points) <=  this.deckBuilder.MAXPOWER){
                                 this.deckBuilder.points += (this.buffer[j].power);
                                 this.deckBuilder.allCards.splice(i, 1);
                                 node.power =this.buffer[j].power;
@@ -105,7 +106,7 @@
                             console.log(this.buffer[j].image+"|"+res); 
                             if(this.buffer[j].image == res){
                                 this.deckBuilder.points -= (this.buffer[j].power);
-                                
+                                node.type = this.buffer[j].type;
                             }
                         }
                         /*Add the points*/
@@ -143,8 +144,44 @@
                 this.giveCard(data);
                 ev.dataTransfer.clearData();
             },
-            sorterino: function () {
-                this.sort = !this.sort;
+            sorterino: function (kind) {
+                switch(kind) {
+                        case 0:
+                            this.sort[0] = true;
+                            this.sort[1] = false;
+                            this.sort[2] = false;
+                            this.sort[3] = false;
+                            this.sort[4] = false;
+                            break;
+                        case 1:
+                            this.sort[0] = false;
+                            this.sort[1] = true;
+                            this.sort[2] = false;
+                            this.sort[3] = false;
+                            this.sort[4] = false;
+                            break;
+                        case 2:
+                            this.sort[0] = false;
+                            this.sort[1] = false;
+                            this.sort[2] = true;
+                            this.sort[3] = false;
+                            this.sort[4] = false;
+                            break;
+                        case 3:
+                            this.sort[0] = false;
+                            this.sort[1] = false;
+                            this.sort[2] = false;
+                            this.sort[3] = true;
+                            this.sort[4] = false;
+                            break;
+                        case 4:
+                            this.sort[0] = false;
+                            this.sort[1] = false;
+                            this.sort[2] = false;
+                            this.sort[3] = false;
+                            this.sort[4] = true;
+                            break;
+                    }
             },
             hide: function () {
                 this.visible = !this.visible;
@@ -187,5 +224,6 @@
         this.allCards = allCards;
         this.deck = deck;
         this.points = 0;
+        this.MAXPOWER = 40;
     }
 })(window.app || (window.app = {}));

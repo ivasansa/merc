@@ -1,13 +1,17 @@
 
-    <div id="deckBuilder" class="container">
+    <div id="deckBuilder" [class.hidden]="visible" class="container">
         
         <div class="row" >
           <div class="col-xs-6" (drop)="handleDropG($event)" (dragenter)="handleDragEnter($event)" (dragleave)="handleDragLeave($event)" ondragover="return false">
               <h1>All cards</h1>
               <div class="row deckHeader" >
-                   <div class="col-xs-12">
-                        {{deckBuilder.points}} 
-                        <button type="button" (click)="sorterino()" class="btn btn-danger"><i class="fa fa-flag"></i></button>
+                   <div class="col-xs-12 firstH">
+                        <h2></h2> 
+                        <button type="button" (click)="sorterino(0)" class="btn btn-danger">All</button>
+                        <button type="button" (click)="sorterino(1)" class="btn btn-danger">Melee</button>
+                        <button type="button" (click)="sorterino(2)" class="btn btn-danger">Cav</button>
+                        <button type="button" (click)="sorterino(3)" class="btn btn-danger">Ranged</button>
+                        <button type="button" (click)="sorterino(4)" class="btn btn-danger">Map</button>
                    </div>
                     
                     <!--<p>Primeres 4 paraules:{{frase | filter:4 }}</p> -->
@@ -15,7 +19,11 @@
                     <!--<p>Primeres 7 paraules: {{frase | filter:7 }}</p>-->
                 </div>
                 
-                <ul class="row"><li *ngFor="#card of deckBuilder.allCards | filter:deckBuilder.allCards"><img id="{{card.name}}" src="{{card.image}}"/></li></ul>  
+                <ul [class.hidden]="!sort[0]" class="row" ><li *ngFor="#card of deckBuilder.allCards | filter:deckBuilder.allCards"><img id="{{card.name}}" src="{{card.image}}"/></li></ul>  
+                <ul [class.hidden]="!sort[1]" class="row" ><li *ngFor="#card of deckBuilder.allCards | melee:deckBuilder.allCards"><img id="{{card.name}}" src="{{card.image}}"/></li></ul>  
+                <ul [class.hidden]="!sort[2]" class="row" ><li *ngFor="#card of deckBuilder.allCards | cav:deckBuilder.allCards"><img id="{{card.name}}" src="{{card.image}}"/></li></ul>  
+                <ul [class.hidden]="!sort[3]" class="row" ><li *ngFor="#card of deckBuilder.allCards | ranged:deckBuilder.allCards"><img id="{{card.name}}" src="{{card.image}}"/></li></ul>  
+                <ul [class.hidden]="!sort[4]" class="row" ><li *ngFor="#card of deckBuilder.allCards | map:deckBuilder.allCards"><img id="{{card.name}}" src="{{card.image}}"/></li></ul>  
             <!--<img id="drag10" src="images/ElRiperino.png" draggable="true" (drag)="handleDrag($event)">-->
             </div>
         <!--</div>-->
@@ -23,8 +31,12 @@
             <div class="col-xs-6" (drop)="handleDrop($event)" (dragenter)="handleDragEnter($event)" (dragleave)="handleDragLeave($event)" ondragover="return false">
                 <h1>Your Deck</h1>
                 <div class="row deckHeader" >
-                   <div class="col-xs-12">
+                   <div class="col-xs-6 secondH">
                         <h2>{{deckBuilder.points}}/40 power</h2>
+                   </div>
+                   <div class="col-xs-6">
+                       <h2></h2>
+                        <button type="button" (click)="hide()" class="btn btn-danger">Play</button>
                    </div> 
                 </div>
                 <ul class="row"><li *ngFor="#card of deckBuilder.deck | filter:deckBuilder.deck"><img id="{{card.name}}" src="{{card.src}}"/></li></ul>                
@@ -33,6 +45,5 @@
     </div>
     
 
-<button type="button" (click)="hide()" class="btn btn-danger"><i class="fa fa-flag"></i></button>
 <!--<joc [class.hello]="hello" [class.nonVisible]="visible"></joc>-->
-<joc [class.nonVisible]="visible"></joc>
+<joc [class.nonVisible]="!visible"></joc>
