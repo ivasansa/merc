@@ -19,8 +19,6 @@
                     return 0;
                 }
             });
-            // }
-            console.log(value);
             return value;
         }
     });
@@ -39,9 +37,7 @@
         var tmp = value.slice();
         function checkMelee(card) {
             return card.type == "melee";
-        }  
-        console.log("Pipero");
-        console.log(value);
+        }
          return tmp.filter(checkMelee);
         }
     });
@@ -60,8 +56,6 @@
         function checkCave(card) {
             return card.type == "cav";
         }  
-        console.log("Pipero");
-        console.log(value);
          return tmp.filter(checkCave);
         }
     });

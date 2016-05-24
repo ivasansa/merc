@@ -4,7 +4,7 @@
         ng.core.Component({
             selector: 'joc',
             templateUrl: "app/joc.html",
-            inputs: [ 'hello' ]
+            inputs : ['playDeck']
         })
             .Class({
             constructor: function () {
@@ -49,12 +49,13 @@
                 this.game.FHand.push(this.card);
                 this.game.SHand.push(this.card);
                 
-                console.log(this.hello);
                 
-                
+                // this.game.SHand = this.hello;
             },
             ngOnInit() {
-                    console.log(this.hello);
+                
+                this.game.SHand = this.playDeck;
+                console.log(this.playDeck);
             },
             computerPlay: function () {
                 if(!this.game.FPassed){

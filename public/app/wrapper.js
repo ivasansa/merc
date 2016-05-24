@@ -3,7 +3,8 @@
         ng.core.Component({
             selector: 'wrapper',
             pipes: [app.PipePersonalitzada, app.MeleePipe, app.CavPipe, app.RangedPipe, app.MapPipe],
-            templateUrl: "app/wrapper.html"
+            templateUrl: "app/wrapper.html",
+            directives : [app.AppComponent]
         })
             .Class({
             constructor: function () {
@@ -43,7 +44,7 @@
                 this.buffer = this.allCards.slice();
                 // this.allCardsMelee = this.allCards.slice();
                 this.deckBuilder = new app.DeckBuilder(this.allCards, []);
-                this.hello = "herro";
+                this.playDeck = [];
             },
             playCard: function (card) {
                 /*Recover the image path of the card and make it a proper image*/
@@ -63,12 +64,13 @@
                         for(var j = 0; j < this.buffer.length; ++j){
                             img = this.buffer[j].image.length;
                             res = node.image.slice(-img); 
-                            console.log(this.buffer[j].image+"|"+res); 
+                            // console.log(this.buffer[j].image+"|"+res); 
                             if(this.buffer[j].image == res && (this.buffer[j].power + this.deckBuilder.points) <=  this.deckBuilder.MAXPOWER){
                                 this.deckBuilder.points += (this.buffer[j].power);
                                 this.deckBuilder.allCards.splice(i, 1);
                                 node.power =this.buffer[j].power;
                                 this.deckBuilder.deck.push(node); 
+                                this.playDeck.push(this.buffer[j]);
                             }
                         }
                         /*Add the points*/
