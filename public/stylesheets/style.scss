@@ -36,10 +36,25 @@
     }
     h2 {
         color: white;
+         margin-bottom: 0px;
+
     }
     div:nth-of-type(1){
         // border-right: 1px solid black;
             background: #6D5C3F;
+            button {
+                i {
+                    position: inherit!important;
+                    transform: inherit;
+                    margin-right: 0px;
+                }
+                &:nth-of-type(3) {
+                    i {
+                        font-size: 1.7em;
+
+                    }
+                }
+            }
             ul {
                 display: inline;
                 list-style: none;

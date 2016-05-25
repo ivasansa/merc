@@ -15,39 +15,34 @@
                 
                 this.card = new app.Merc('ElRiperino', 'CI', 4, 'melee', 'images/ElRiperino.png');
                 this.game.FHand.push(this.card);
-                this.game.SHand.push(this.card);
                 
                 this.card = new app.Merc('Blackburn', 'CI', 4, 'ranged', 'images/Blackburn.png');
                 this.game.FHand.push(this.card);
-                this.game.SHand.push(this.card);
                 
                 this.card = new app.Merc('ElMartinenc', 'CI', 6, 'cav', 'images/ElMartinenc.png');
                 this.game.FHand.push(this.card);
-                this.game.SHand.push(this.card);
                 
                 this.card = new app.Merc('Asediado', 'CI', 10, 'melee', 'images/Asediado.png');
                 this.game.FHand.push(this.card);
-                this.game.SHand.push(this.card);
                 
                 this.card = new app.Merc('Blas de Lezo', 'CI', 7, 'melee', 'images/BlasdeLezo.png');
                 // this.game.FHand.push(this.card);
-                this.game.SHand.push(this.card);
+                this.game.FHand.push(this.card);
                 
                 this.card = new app.Merc('Dume', 'CI', 9, 'cav', 'images/Dume.png');
                 // this.game.FHand.push(this.card);
-                this.game.SHand.push(this.card);
+                this.game.FHand.push(this.card);
                 
                 this.card = new app.Merc('Sento', 'CI', 6, 'cav', 'images/Sento.png');
                 // this.game.FHand.push(this.card);
-                this.game.SHand.push(this.card);
+                this.game.FHand.push(this.card);
                 
                 this.card = new app.Merc('Toni Pepperoni', 'CI', 5, 'melee', 'images/ToniPepperoni.png');
                 // this.game.FHand.push(this.card);
-                this.game.SHand.push(this.card);
+                this.game.FHand.push(this.card);
                 
                 this.card = new app.Map('Ruins', 1, 2, 1, 'images/Ruins.png');
                 this.game.FHand.push(this.card);
-                this.game.SHand.push(this.card);
                 
                 
                 // this.game.SHand = this.hello;

@@ -10,7 +10,6 @@
             constructor: function () {
                 // this.cards = [];
                 this.dragging = false;
-                this.frase = `Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`;
                 this.sort = [true,false,false,false];
                 this.allCards = [];
                 this.buffer = [];
@@ -45,6 +44,7 @@
                 // this.allCardsMelee = this.allCards.slice();
                 this.deckBuilder = new app.DeckBuilder(this.allCards, []);
                 this.playDeck = [];
+                this.allowedToPlay = false;
             },
             playCard: function (card) {
                 /*Recover the image path of the card and make it a proper image*/
@@ -72,16 +72,15 @@
                                 this.deckBuilder.deck.push(node); 
                                 this.playDeck.push(this.buffer[j]);
                             }
-                        }
-                        /*Add the points*/
-                        // this.deckBuilder.points += (this.deckBuilder.allCards[i].power);
-                        /*Remove the card from the hand*/
-                        // this.deckBuilder.allCards.splice(i, 1);
-                        // node.power = this.deckBuilder.allCards[i].power;
-                        // this.deckBuilder.deck.push(node);  
+                        } 
                     }
                 }
-                
+                if(this.deckBuilder.deck.length <= this.deckBuilder.MAXCARDS && this.deckBuilder.deck.length >= this.deckBuilder.MINCARDS){
+                    this.allowedToPlay = true;
+                    console.log(this.allowedToPlay);
+                }else{
+                    this.allowedToPlay = false;
+                }
             },
             
             giveCard: function (card) {
@@ -99,16 +98,14 @@
                     res = node.image.slice(-img);      
 
                      if(res == this.deckBuilder.deck[i].image){
-                        console.log(this.deckBuilder.deck[i].image);
-                        console.log(this.buffer);
                         
                         for(var j = 0; j < this.buffer.length; ++j){
                             img = this.buffer[j].image.length;
                             res = node.image.slice(-img); 
-                            console.log(this.buffer[j].image+"|"+res); 
                             if(this.buffer[j].image == res){
                                 this.deckBuilder.points -= (this.buffer[j].power);
                                 node.type = this.buffer[j].type;
+                                this.playDeck.splice(this.playDeck.indexOf(this.buffer[j]),1);
                             }
                         }
                         /*Add the points*/
@@ -116,6 +113,13 @@
                         this.deckBuilder.deck.splice(i, 1);
                         
                         this.deckBuilder.allCards.push(node);  
+                        // this.playDeck.splice(i,1);
+                        if(this.deckBuilder.deck.length >= this.deckBuilder.MINCARDS){
+                            this.allowedToPlay = true;
+                            console.log(this.allowedToPlay);
+                        }else{
+                            this.allowedToPlay = false;
+                        }
                     }
                 }
                 
@@ -126,11 +130,13 @@
                 this.dragging = false;
                 // console.log(this.dragging);
             },
+            
             handleDragEnter: function (ev) {
                 ev.preventDefault();
                 this.dragging = true;
                 // console.log(this.dragging);
             },
+            
             handleDrop: function (ev) {
                 this.dragging = false;
                 ev.preventDefault();
@@ -138,6 +144,7 @@
                 this.playCard(data);
                 ev.dataTransfer.clearData();
             },
+            
             handleDropG: function (ev) {
                 this.dragging = false;
                 ev.preventDefault();
@@ -146,6 +153,7 @@
                 this.giveCard(data);
                 ev.dataTransfer.clearData();
             },
+            
             sorterino: function (kind) {
                 switch(kind) {
                         case 0:
@@ -185,6 +193,7 @@
                             break;
                     }
             },
+            
             hide: function () {
                 this.visible = !this.visible;
             }
@@ -227,5 +236,7 @@
         this.deck = deck;
         this.points = 0;
         this.MAXPOWER = 40;
+        this.MINCARDS = 2;
+        this.MAXCARDS = 4;
     }
 })(window.app || (window.app = {}));

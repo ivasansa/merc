@@ -7,11 +7,11 @@
               <div class="row deckHeader" >
                    <div class="col-xs-12 firstH">
                         <h2></h2> 
-                        <button type="button" (click)="sorterino(0)" class="btn btn-danger">All</button>
-                        <button type="button" (click)="sorterino(1)" class="btn btn-danger">Melee</button>
-                        <button type="button" (click)="sorterino(2)" class="btn btn-danger">Cav</button>
-                        <button type="button" (click)="sorterino(3)" class="btn btn-danger">Ranged</button>
-                        <button type="button" (click)="sorterino(4)" class="btn btn-danger">Map</button>
+                        <button type="button" (click)="sorterino(0)" class="btn btn-danger"><i class="fa fa-list"></i></button>
+                        <button type="button" (click)="sorterino(1)" class="btn btn-danger"><i class="fa fa-shield"></i></button>
+                        <button type="button" (click)="sorterino(2)" class="btn btn-danger"><i class="glyphicon glyphicon-knight"></i></button>
+                        <button type="button" (click)="sorterino(3)" class="btn btn-danger"><i class="fa fa-bullseye"></i></button>
+                        <button type="button" (click)="sorterino(4)" class="btn btn-danger"><i class="fa fa-map-o"></i></button>
                    </div>
                     
                     <!--<p>Primeres 4 paraules:{{frase | filter:4 }}</p> -->
@@ -32,11 +32,11 @@
                 <h1>Your Deck</h1>
                 <div class="row deckHeader" >
                    <div class="col-xs-6 secondH">
-                        <h2>{{deckBuilder.points}}/40 power</h2>
+                        <h2>{{deckBuilder.points}}/{{deckBuilder.MAXPOWER}} power</h2>
                    </div>
                    <div class="col-xs-6">
-                       <h2></h2>
-                        <button type="button" (click)="hide()" class="btn btn-danger">Play</button>
+                        <h2>{{deckBuilder.MINCARDS}} to {{deckBuilder.MAXCARDS}} cards</h2>
+                        <button type="button" [class.nonVisible]="!allowedToPlay" (click)="hide()" class="btn btn-danger"><i class="fa fa-gamepad"></i></button>
                    </div> 
                 </div>
                 <ul class="row"><li *ngFor="#card of deckBuilder.deck | filter:deckBuilder.deck"><img id="{{card.name}}" src="{{card.src}}"/></li></ul>                
@@ -44,6 +44,4 @@
         </div>
     </div>
     
-
-<!--<joc [class.hello]="hello" [class.nonVisible]="visible"></joc>-->
 <joc [class.nonVisible]="!visible" [playDeck]="playDeck" ></joc>

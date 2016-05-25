@@ -33,9 +33,16 @@ h1, span, h2 {
     text-align: center;
     color: white; }
   #deckBuilder h2 {
-    color: white; }
+    color: white;
+    margin-bottom: 0px; }
   #deckBuilder div:nth-of-type(1) {
     background: #6D5C3F; }
+    #deckBuilder div:nth-of-type(1) button i {
+      position: inherit !important;
+      transform: inherit;
+      margin-right: 0px; }
+    #deckBuilder div:nth-of-type(1) button:nth-of-type(3) i {
+      font-size: 1.7em; }
     #deckBuilder div:nth-of-type(1) ul {
       display: inline;
       list-style: none;
