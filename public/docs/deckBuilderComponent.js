@@ -12,7 +12,7 @@
                 this.buffer = [];
                 
                 /** Card instantiation and setup of allCards section */
-                 this.card = new app.Merc('ElRiperino', 'CI', 4, 'melee', 'images/ElRiperino.png');
+                this.card = new app.Merc('ElRiperino', 'CI', 4, 'melee', 'images/ElRiperino.png');
                 this.allCards.push(this.card);
                 this.card = new app.Merc('Blackburn', 'CI', 4, 'ranged', 'images/Blackburn.png');
                 this.allCards.push(this.card);

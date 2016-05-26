@@ -304,7 +304,6 @@
                 }
                 ev.dataTransfer.clearData();
             }
-    
         /** Handles the finish of a round and the start of the next */
         function clearTable(winner) {
                 this.game.FDiscards = this.game.FDiscards.concat(this.game.FRanged,this.game.FCav,this.game.FMelee);
@@ -334,7 +333,6 @@
                     }
                 }
             }
-            
         /** Handles the Passing of the player */
         function SPass() {
                 this.game.SPassed = true;
